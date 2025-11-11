@@ -2,8 +2,8 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="center-flex min-h-screen bg-gray-50 font-sans">
-      <main className="center-flex-col min-h-screen w-full max-w-3xl section-spacing bg-white center-col-responsive">
+    <div className="center-flex min-h-screen bg-white font-sans">
+      <main className="center-flex-col min-h-screen w-full max-w-3xl section-spacing bg-gray-50 center-col-responsive">
         <div className="mb-lg">
           <Image
             src="/next.svg"
