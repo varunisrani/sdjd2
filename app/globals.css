@@ -74,6 +74,66 @@ p { margin-bottom: 1rem; color: var(--text-secondary); }
   text-decoration: none;
 }
 
+/* Enhanced Flexbox Centering Utilities */
+.center-flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.center-flex-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.center-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.center-around {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.center-evenly {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+/* Responsive Centering Utilities */
+.center-responsive {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 640px) {
+  .center-responsive {
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+}
+
+.center-col-responsive {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 640px) {
+  .center-col-responsive {
+    align-items: flex-start;
+    text-align: left;
+  }
+}
+
 .btn-primary {
   background-color: var(--primary);
   color: white;
@@ -135,6 +195,47 @@ label {
 
 .section-padding {
   padding: 3rem 0;
+}
+
+/* Consistent Spacing Utilities */
+.spacing-xs { margin: 0.5rem; }
+.spacing-sm { margin: 1rem; }
+.spacing-md { margin: 1.5rem; }
+.spacing-lg { margin: 2rem; }
+.spacing-xl { margin: 3rem; }
+
+.mt-xs { margin-top: 0.5rem; }
+.mt-sm { margin-top: 1rem; }
+.mt-md { margin-top: 1.5rem; }
+.mt-lg { margin-top: 2rem; }
+.mt-xl { margin-top: 3rem; }
+
+.mb-xs { margin-bottom: 0.5rem; }
+.mb-sm { margin-bottom: 1rem; }
+.mb-md { margin-bottom: 1.5rem; }
+.mb-lg { margin-bottom: 2rem; }
+.mb-xl { margin-bottom: 3rem; }
+
+.gap-xs { gap: 0.5rem; }
+.gap-sm { gap: 1rem; }
+.gap-md { gap: 1.5rem; }
+.gap-lg { gap: 2rem; }
+.gap-xl { gap: 3rem; }
+
+/* Vertical Spacing Utilities */
+.vspace-sm { margin-top: 1rem; margin-bottom: 1rem; }
+.vspace-md { margin-top: 1.5rem; margin-bottom: 1.5rem; }
+.vspace-lg { margin-top: 2rem; margin-bottom: 2rem; }
+
+/* Section Spacing */
+.section-spacing {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+
+.section-spacing-sm {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
 }
 
 .grid-2 {
