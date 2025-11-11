@@ -16,12 +16,14 @@
   --accent: #ff6b6b;
   --accent-light: #ffe6e6;
 
-  /* Neutral Colors */
-  --dark: #1a1a1a;
-  --light-gray: #f5f5f5;
-  --border: #e0e0e0;
-  --text-primary: #333333;
-  --text-secondary: #666666;
+  /* Neutral Colors - Enhanced White Theme */
+  --dark: #1f2937;
+  --light-gray: #fafafa;
+  --border: #e5e7eb;
+  --text-primary: #111827;
+  --text-secondary: #6b7280;
+  --background: #ffffff;
+  --surface: #f9fafb;
 
   /* Status Colors */
   --success: #28a745;
@@ -43,7 +45,7 @@ html {
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   color: var(--text-primary);
-  background-color: #ffffff;
+  background-color: var(--background);
   line-height: 1.6;
 }
 
@@ -83,7 +85,7 @@ p { margin-bottom: 1rem; color: var(--text-secondary); }
 }
 
 .card {
-  background: white;
+  background: var(--surface);
   border-radius: 0.75rem;
   border: 1px solid var(--border);
   padding: 1.5rem;
