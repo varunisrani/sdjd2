@@ -1,35 +1,42 @@
 @import 'tailwindcss';
 
-/* Pharmaceutical Design System */
+/* Doit Red Theme Music App Design System */
 :root {
-  /* Primary Brand Colors */
-  --primary: #0066cc;
-  --primary-dark: #0052a3;
-  --primary-light: #e6f2ff;
+  /* Primary Red Colors */
+  --primary: #dc2626;
+  --primary-dark: #991b1b;
+  --primary-light: #fee2e2;
+  --primary-hover: #ef4444;
 
   /* Secondary Colors */
-  --secondary: #00a86b;
-  --secondary-dark: #008555;
-  --secondary-light: #e6f7f0;
+  --secondary: #1f2937;
+  --secondary-dark: #111827;
+  --secondary-light: #f3f4f6;
 
   /* Accent Colors */
-  --accent: #ff6b6b;
-  --accent-light: #ffe6e6;
+  --accent: #f59e0b;
+  --accent-light: #fef3c7;
 
-  /* Neutral Colors - Enhanced White Theme */
-  --dark: #1f2937;
-  --light-gray: #fafafa;
-  --border: #e5e7eb;
-  --text-primary: #111827;
-  --text-secondary: #6b7280;
-  --background: #ffffff;
-  --surface: #f9fafb;
+  /* Neutral Colors - Dark Theme */
+  --dark: #000000;
+  --light-gray: #374151;
+  --border: #4b5563;
+  --text-primary: #ffffff;
+  --text-secondary: #d1d5db;
+  --background: #111827;
+  --surface: #1f2937;
 
   /* Status Colors */
-  --success: #28a745;
-  --warning: #ffc107;
-  --error: #dc3545;
-  --info: #17a2b8;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --error: #ef4444;
+  --info: #3b82f6;
+
+  /* Music App Specific Colors */
+  --now-playing-bg: #1f2937;
+  --track-hover: #374151;
+  --player-bg: #000000;
+  --control-active: #dc2626;
 }
 
 * {
@@ -52,7 +59,7 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
   line-height: 1.2;
-  color: var(--dark);
+  color: var(--text-primary);
 }
 
 h1 { font-size: 2.5rem; margin-bottom: 1.5rem; }
@@ -140,7 +147,7 @@ p { margin-bottom: 1rem; color: var(--text-secondary); }
 }
 
 .btn-primary:hover {
-  background-color: var(--primary-dark);
+  background-color: var(--primary-hover);
   transform: translateY(-2px);
 }
 
@@ -187,11 +194,6 @@ label {
   animation: fadeInUp 0.6s ease-out;
 }
 
-.container-pharma {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1.5rem;
-}
 
 .section-padding {
   padding: 3rem 0;
@@ -256,4 +258,64 @@ label {
   }
   h1 { font-size: 1.5rem; }
   h2 { font-size: 1.25rem; }
+}
+
+/* Music App Specific Utilities */
+.music-player-bg {
+  background: var(--player-bg);
+}
+
+.track-hover:hover {
+  background: var(--track-hover);
+}
+
+.control-active {
+  color: var(--control-active);
+}
+
+.now-playing-bg {
+  background: var(--now-playing-bg);
+}
+
+.music-btn {
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.music-btn:hover {
+  background: var(--primary-hover);
+  transform: scale(1.05);
+}
+
+.music-btn-small {
+  width: 32px;
+  height: 32px;
+}
+
+.music-btn-large {
+  width: 64px;
+  height: 64px;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--primary);
+  transition: width 0.1s ease;
 }
