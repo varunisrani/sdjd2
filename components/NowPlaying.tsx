@@ -68,6 +68,7 @@ export default function NowPlaying({
   const [isRotating, setIsRotating] = useState(false);
   const [isLiked, setIsLiked] = useState(currentTrack.isLiked || false);
   const audioRef = useRef<HTMLAudioElement>(null);
+  const progressBarRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setIsRotating(isPlaying);
@@ -154,16 +155,22 @@ export default function NowPlaying({
   };
 
   useEffect(() => {
-    const handleGlobalMouseUp = handleMouseUp;
-    const handleGlobalMouseMove = handleProgressDrag;
+    const handleGlobalMouseMove = (e: MouseEvent) => {
+      if (!isDragging || !progressBarRef.current) return;
+
+      const rect = progressBarRef.current.getBoundingClientRect();
+      const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
+      const percentage = (x / rect.width) * 100;
+      setDragProgress(percentage);
+    };
 
     if (isDragging) {
-      document.addEventListener('mouseup', handleGlobalMouseUp);
+      document.addEventListener('mouseup', handleMouseUp);
       document.addEventListener('mousemove', handleGlobalMouseMove);
     }
 
     return () => {
-      document.removeEventListener('mouseup', handleGlobalMouseUp);
+      document.removeEventListener('mouseup', handleMouseUp);
       document.removeEventListener('mousemove', handleGlobalMouseMove);
     };
   }, [isDragging, dragProgress, currentTime, currentTrack.duration]);
@@ -266,6 +273,7 @@ export default function NowPlaying({
           {/* Progress Bar */}
           <div className="w-full max-w-2xl mb-8">
             <div
+              ref={progressBarRef}
               className="progress-bar cursor-pointer group mb-2"
               onClick={handleProgressClick}
               onMouseDown={handleMouseDown}

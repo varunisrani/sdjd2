@@ -57,6 +57,7 @@ export default function MusicPlayer({
   const [isDragging, setIsDragging] = useState(false);
   const [dragProgress, setDragProgress] = useState(0);
   const audioRef = useRef<HTMLAudioElement>(null);
+  const progressBarRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -139,16 +140,22 @@ export default function MusicPlayer({
   };
 
   useEffect(() => {
-    const handleGlobalMouseUp = handleMouseUp;
-    const handleGlobalMouseMove = handleProgressDrag;
+    const handleGlobalMouseMove = (e: MouseEvent) => {
+      if (!isDragging || !progressBarRef.current) return;
+
+      const rect = progressBarRef.current.getBoundingClientRect();
+      const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
+      const percentage = (x / rect.width) * 100;
+      setDragProgress(percentage);
+    };
 
     if (isDragging) {
-      document.addEventListener('mouseup', handleGlobalMouseUp);
+      document.addEventListener('mouseup', handleMouseUp);
       document.addEventListener('mousemove', handleGlobalMouseMove);
     }
 
     return () => {
-      document.removeEventListener('mouseup', handleGlobalMouseUp);
+      document.removeEventListener('mouseup', handleMouseUp);
       document.removeEventListener('mousemove', handleGlobalMouseMove);
     };
   }, [isDragging, dragProgress, currentTime, currentTrack.duration]);
@@ -182,6 +189,7 @@ export default function MusicPlayer({
           {/* Progress Bar */}
           <div className="mb-2 md:mb-3">
             <div
+              ref={progressBarRef}
               className={`progress-bar cursor-pointer group ${isDragging ? 'dragging' : ''}`}
               onClick={handleProgressClick}
               onMouseDown={handleMouseDown}
