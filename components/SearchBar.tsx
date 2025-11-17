@@ -172,29 +172,31 @@ export default function SearchBar({
   };
 
   const getIcon = (type: SearchResult['type']) => {
+    const iconStyle = { color: 'var(--primary)' };
+    const defaultStyle = { color: 'var(--text-secondary)' };
+
     switch (type) {
       case 'track':
-        return <Music size={16} className="text-red-600" />;
+        return <Music size={16} style={iconStyle} />;
       case 'album':
-        return <Album size={16} className="text-red-600" />;
+        return <Album size={16} style={iconStyle} />;
       case 'artist':
-        return <Users size={16} className="text-red-600" />;
+        return <Users size={16} style={iconStyle} />;
       case 'playlist':
-        return <TrendingUp size={16} className="text-red-600" />;
+        return <TrendingUp size={16} style={iconStyle} />;
       default:
-        return <Search size={16} className="text-gray-400" />;
+        return <Search size={16} style={defaultStyle} />;
     }
   };
 
   const showDropdown = isOpen && (query.length > 0 || showRecentSearches);
 
   return (
-    <div className={`relative ${className}`} ref={dropdownRef}>
+    <div className={`relative w-full md:w-80 ${className}`} ref={dropdownRef}>
       <div className="relative">
         <Search
-          className={`absolute left-4 top-1/2 transform -translate-y-1/2 transition-colors ${
-            isOpen ? 'text-red-600' : 'text-gray-400'
-          }`}
+          className="absolute left-3 md:left-4 top-1/2 transform -translate-y-1/2 transition-colors"
+          style={{ color: isOpen ? 'var(--primary)' : 'var(--text-secondary)' }}
           size={20}
         />
 
@@ -205,15 +207,23 @@ export default function SearchBar({
           onChange={handleInputChange}
           onFocus={handleInputFocus}
           placeholder={placeholder}
-          className={`w-full bg-gray-800 text-white pl-12 pr-12 py-3 rounded-full focus:outline-none focus:ring-2 transition-all ${
-            isOpen ? 'ring-2 ring-red-600' : 'focus:ring-red-600'
-          }`}
+          className="search-input w-full h-11 md:h-10 pl-10 md:pl-12 pr-10 md:pr-12 text-base md:text-sm rounded-lg transition-all"
+          style={{
+            backgroundColor: 'var(--surface)',
+            color: 'var(--text-primary)',
+            border: `1px solid ${isOpen ? 'var(--primary)' : 'var(--border)'}`,
+            outline: isOpen ? '3px solid var(--primary)' : 'none',
+            outlineOffset: '2px'
+          }}
+          aria-label="Search tracks, artists, albums"
         />
 
         {query.length > 0 && (
           <button
             onClick={handleClearSearch}
-            className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
+            className="touch-target absolute right-2 md:right-3 top-1/2 transform -translate-y-1/2 p-2 rounded-full transition-colors hover:bg-opacity-10"
+            style={{ color: 'var(--text-secondary)' }}
+            aria-label="Clear search"
           >
             <X size={16} />
           </button>
@@ -221,21 +231,32 @@ export default function SearchBar({
       </div>
 
       {showDropdown && (
-        <div className="absolute top-full left-0 right-0 mt-2 bg-gray-800 rounded-lg shadow-xl border border-gray-700 max-h-96 overflow-y-auto z-50">
+        <div
+          className="absolute top-full left-0 right-0 mt-2 rounded-lg shadow-xl overflow-y-auto z-50 max-h-[60vh] md:max-h-96 fade-in"
+          style={{
+            backgroundColor: 'var(--surface)',
+            border: '1px solid var(--border)'
+          }}
+        >
           {isLoading ? (
-            <div className="p-4 text-center text-gray-400">
-              <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-red-600 mx-auto"></div>
+            <div className="p-4 text-center" style={{ color: 'var(--text-secondary)' }}>
+              <div
+                className="animate-spin rounded-full h-6 w-6 mx-auto"
+                style={{ borderWidth: '2px', borderColor: 'transparent', borderTopColor: 'var(--primary)' }}
+              ></div>
               <p className="mt-2 text-sm">Searching...</p>
             </div>
           ) : (
             <>
               {query.length === 0 && showRecentSearches && recentSearches.length > 0 && (
                 <div>
-                  <div className="flex items-center justify-between px-4 py-2 border-b border-gray-700">
-                    <span className="text-sm font-medium text-gray-400">Recent Searches</span>
+                  <div className="flex items-center justify-between px-3 md:px-4 py-2" style={{ borderBottom: '1px solid var(--border)' }}>
+                    <span className="text-xs md:text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>Recent Searches</span>
                     <button
                       onClick={clearRecentSearches}
-                      className="text-xs text-gray-500 hover:text-red-600 transition-colors"
+                      className="text-xs transition-colors hover:opacity-80"
+                      style={{ color: 'var(--text-secondary)' }}
+                      aria-label="Clear all recent searches"
                     >
                       Clear all
                     </button>
@@ -244,19 +265,22 @@ export default function SearchBar({
                     <button
                       key={index}
                       onClick={() => handleRecentSearch(searchTerm)}
-                      className={`w-full text-left px-4 py-3 hover:bg-gray-700 transition-colors flex items-center space-x-3 ${
-                        selectedIndex === index ? 'bg-gray-700' : ''
-                      }`}
+                      className={`touch-target w-full text-left px-3 md:px-4 py-3 transition-all duration-150 flex items-center gap-3 min-h-[48px]`}
+                      style={{
+                        backgroundColor: selectedIndex === index ? 'var(--track-hover)' : 'transparent',
+                      }}
+                      onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--track-hover)'}
+                      onMouseLeave={(e) => e.currentTarget.style.backgroundColor = selectedIndex === index ? 'var(--track-hover)' : 'transparent'}
                     >
-                      <Clock size={16} className="text-gray-400" />
-                      <span className="text-gray-300">{searchTerm}</span>
+                      <Clock size={16} style={{ color: 'var(--text-secondary)' }} />
+                      <span className="text-sm md:text-base" style={{ color: 'var(--text-primary)' }}>{searchTerm}</span>
                     </button>
                   ))}
                 </div>
               )}
 
               {query.length > 0 && results.length === 0 && !isLoading && (
-                <div className="p-8 text-center text-gray-400">
+                <div className="p-6 md:p-8 text-center" style={{ color: 'var(--text-secondary)' }}>
                   <Search size={32} className="mx-auto mb-3 opacity-50" />
                   <p className="text-sm">No results found for "{query}"</p>
                 </div>
@@ -265,8 +289,8 @@ export default function SearchBar({
               {results.length > 0 && (
                 <div>
                   {query.length > 0 && (
-                    <div className="px-4 py-2 border-b border-gray-700">
-                      <span className="text-sm font-medium text-gray-400">
+                    <div className="px-3 md:px-4 py-2" style={{ borderBottom: '1px solid var(--border)' }}>
+                      <span className="text-xs md:text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>
                         {results.length} results for "{query}"
                       </span>
                     </div>
@@ -275,16 +299,19 @@ export default function SearchBar({
                     <button
                       key={result.id}
                       onClick={() => handleResultClick(result)}
-                      className={`w-full text-left px-4 py-3 hover:bg-gray-700 transition-colors flex items-center space-x-3 ${
-                        selectedIndex === index ? 'bg-gray-700' : ''
-                      }`}
+                      className={`touch-target w-full text-left px-3 md:px-4 py-3 transition-all duration-150 flex items-center gap-3 min-h-[48px]`}
+                      style={{
+                        backgroundColor: selectedIndex === index ? 'var(--track-hover)' : 'transparent',
+                      }}
+                      onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--track-hover)'}
+                      onMouseLeave={(e) => e.currentTarget.style.backgroundColor = selectedIndex === index ? 'var(--track-hover)' : 'transparent'}
                     >
-                      <div className="w-8 h-8 bg-gray-700 rounded flex items-center justify-center flex-shrink-0">
+                      <div className="w-8 h-8 rounded flex items-center justify-center flex-shrink-0" style={{ backgroundColor: 'var(--background)' }}>
                         {getIcon(result.type)}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <div className="font-medium text-white truncate">{result.title}</div>
-                        <div className="text-sm text-gray-400 truncate">{result.subtitle}</div>
+                        <div className="font-medium truncate text-sm md:text-base" style={{ color: 'var(--text-primary)' }}>{result.title}</div>
+                        <div className="text-xs md:text-sm truncate" style={{ color: 'var(--text-secondary)' }}>{result.subtitle}</div>
                       </div>
                     </button>
                   ))}

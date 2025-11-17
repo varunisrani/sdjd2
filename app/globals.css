@@ -470,6 +470,21 @@ label {
   }
 }
 
+/* Search Input - Accessible Focus States */
+.search-input {
+  transition: border-color 150ms ease-out, outline 150ms ease-out;
+}
+
+.search-input:focus {
+  outline: 3px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.search-input:focus-visible {
+  outline: 3px solid var(--primary);
+  outline-offset: 2px;
+}
+
 /* Responsive Breakpoints Reference (Tailwind defaults)
  * Mobile: 0-640px (default/base styles)
  * Tablet: 641-1024px (md: 768px)
