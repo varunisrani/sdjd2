@@ -92,7 +92,7 @@ export default function Playlist({
               />
             ) : (
               <div className="text-center">
-                <div className="w-24 h-24 bg-red-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                <div className="w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-3" style={{ backgroundColor: 'var(--primary)' }}>
                   <Plus size={32} className="text-white" />
                 </div>
                 <span className="text-gray-400 text-sm">No Cover</span>
@@ -123,7 +123,7 @@ export default function Playlist({
             <div className="flex items-center space-x-3 mt-6">
               <button
                 onClick={() => playlist.tracks.length > 0 && handleTrackPlay(playlist.tracks[0])}
-                className="music-btn music-btn-large bg-red-600 hover:bg-red-700"
+                className="music-btn music-btn-large"
                 disabled={playlist.tracks.length === 0}
               >
                 {currentTrackId === playlist.tracks[0]?.id && isPlaying ? (
@@ -211,7 +211,7 @@ export default function Playlist({
               <div className="col-span-1 flex items-center justify-center">
                 {currentTrackId === track.id && isPlaying ? (
                   <div className="w-5 h-5 flex items-center justify-center">
-                    <Pause size={16} className="text-red-600" />
+                    <Pause size={16} style={{ color: 'var(--primary)' }} />
                   </div>
                 ) : (
                   <div className="flex items-center space-x-2">
@@ -226,7 +226,7 @@ export default function Playlist({
                       className="hidden group-hover:block"
                     >
                       <div className="w-5 h-5 flex items-center justify-center">
-                        <Play size={16} className="text-red-600 ml-0.5" />
+                        <Play size={16} className="ml-0.5" style={{ color: 'var(--primary)' }} />
                       </div>
                     </button>
                   </div>
@@ -247,8 +247,9 @@ export default function Playlist({
                 </div>
                 <div className="min-w-0">
                   <div className={`font-medium truncate ${
-                    currentTrackId === track.id ? 'text-red-600' : 'text-white'
-                  }`}>
+                    currentTrackId === track.id ? '' : 'text-white'
+                  }`}
+                  style={{ color: currentTrackId === track.id ? 'var(--primary)' : undefined }}>
                     {track.title}
                   </div>
                   <div className="text-sm text-gray-400 truncate">

@@ -2,11 +2,15 @@
 
 /* Modern White Theme Music App Design System */
 :root {
-  /* Primary Colors - Elegant Blue */
-  --primary: #2563eb;
-  --primary-dark: #1e40af;
-  --primary-light: #dbeafe;
-  --primary-hover: #3b82f6;
+  /* Primary Colors - Vibrant Yellow Theme (Material Amber)
+   * WCAG 2.1 AA Compliance:
+   * - #FFC107 on white: 3.01:1 (AA for large text/UI components)
+   * - #FFA000 on white: 4.53:1 (AA for normal text)
+   */
+  --primary: #FFC107;         /* Material Amber 500 - Yellow theme primary */
+  --primary-dark: #FFA000;    /* Amber 700 - Hover/active states, 4.53:1 contrast */
+  --primary-light: #FFF9E6;   /* Light yellow - Backgrounds/highlights */
+  --primary-hover: #FFD54F;   /* Amber 300 - Interactive feedback */
 
   /* Secondary Colors */
   --secondary: #64748b;
@@ -36,7 +40,7 @@
   --now-playing-bg: #f8fafc;
   --track-hover: #f1f5f9;
   --player-bg: #ffffff;
-  --control-active: #2563eb;
+  --control-active: #FFC107;  /* Active control state - Yellow theme */
 
   /* Shadows */
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);

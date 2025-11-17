@@ -184,9 +184,9 @@ export default function NowPlaying({
   const getRepeatIcon = () => {
     switch (repeatMode) {
       case 'all':
-        return <Repeat size={20} className="text-red-600" />;
+        return <Repeat size={20} style={{ color: 'var(--primary)' }} />;
       case 'one':
-        return <div className="relative"><Repeat size={20} className="text-red-600" /><span className="absolute -top-1 -right-1 text-xs text-red-600">1</span></div>;
+        return <div className="relative"><Repeat size={20} style={{ color: 'var(--primary)' }} /><span className="absolute -top-1 -right-1 text-xs" style={{ color: 'var(--primary)' }}>1</span></div>;
       default:
         return <Repeat size={20} className="text-gray-400" />;
     }
@@ -236,7 +236,7 @@ export default function NowPlaying({
                   className="w-full h-full object-cover"
                 />
               ) : (
-                <div className="w-full h-full bg-gradient-to-br from-red-600 to-red-800 flex items-center justify-center">
+                <div className="w-full h-full flex items-center justify-center" style={{ background: 'linear-gradient(to bottom right, var(--primary), var(--primary-dark))' }}>
                   <div className="w-32 h-32 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
                     <Play size={48} className="text-white ml-2" />
                   </div>
@@ -293,7 +293,8 @@ export default function NowPlaying({
           <div className="flex items-center space-x-6 mb-8">
             <button
               onClick={onToggleShuffle}
-              className={`p-2 rounded-full transition-colors ${isShuffled ? 'text-red-600' : 'text-gray-400 hover:text-white'}`}
+              className={`p-2 rounded-full transition-colors ${isShuffled ? '' : 'text-gray-400 hover:text-white'}`}
+              style={{ color: isShuffled ? 'var(--primary)' : undefined }}
             >
               <Shuffle size={20} />
             </button>
@@ -307,7 +308,10 @@ export default function NowPlaying({
 
             <button
               onClick={onPlayPause}
-              className="p-5 bg-red-600 hover:bg-red-700 rounded-full hover:scale-105 transition-all shadow-lg"
+              className="p-5 rounded-full hover:scale-105 transition-all shadow-lg"
+              style={{ backgroundColor: 'var(--primary)' }}
+              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--primary-hover)'}
+              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'var(--primary)'}
             >
               {isPlaying ? <Pause size={28} /> : <Play size={28} className="ml-1" />}
             </button>
@@ -344,7 +348,7 @@ export default function NowPlaying({
                 onChange={(e) => onVolumeChange(Number(e.target.value))}
                 className="w-full h-1 bg-gray-700 rounded-full appearance-none cursor-pointer"
                 style={{
-                  background: `linear-gradient(to right, #dc2626 0%, #dc2626 ${volume}%, #4b5563 ${volume}%, #4b5563 100%)`
+                  background: `linear-gradient(to right, var(--primary) 0%, var(--primary) ${volume}%, #4b5563 ${volume}%, #4b5563 100%)`
                 }}
               />
             </div>
