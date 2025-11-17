@@ -1,0 +1,62 @@
+---
+name: Apply Theme to TrackList Component
+status: open
+created: 2025-11-17T20:41:45Z
+updated: 2025-11-17T20:41:45Z
+github: [Will be updated when synced to GitHub]
+depends_on: [004]
+parallel: false
+conflicts_with: [002, 003, 004, 006]
+---
+
+# Task: Apply Theme to TrackList Component
+
+## Description
+Refactor the TrackList component to use the white and red theme system. Implement white primary background with light gray alternating rows/hover states, red highlight for selected/active track, and red interactive icons.
+
+## Acceptance Criteria
+- [ ] White primary background using `--color-primary`
+- [ ] Light gray alternating rows or hover states using `--color-background`
+- [ ] Red highlight for selected/active track using `--color-accent`
+- [ ] Red interactive icons (add, favorite, menu) using theme colors
+- [ ] All hardcoded colors replaced with CSS variables
+- [ ] Hover states provide clear visual feedback
+- [ ] List functionality unchanged
+- [ ] No console errors
+
+## Technical Details
+**Implementation approach:**
+1. Update background colors for track rows
+2. Implement red highlight for active/selected track
+3. Style interactive icons with theme colors
+4. Add hover state styling with theme variables
+5. Ensure proper contrast for all text elements
+
+**Key considerations:**
+- Visual distinction between normal, hover, and active states
+- Maintain list scrolling and virtualization if present
+- Preserve any drag-and-drop functionality
+
+**Code locations/files affected:**
+- `components/TrackList.tsx` (or .jsx)
+- `components/TrackList.module.css`
+
+## Dependencies
+- [ ] Task 004 completed (SearchBar themed)
+- [ ] CSS variables available
+- [ ] Refactoring pattern well-established
+
+## Effort Estimate
+- Size: S-M
+- Hours: 1.5-2 hours
+- Parallel: false
+
+## Definition of Done
+- [ ] Code implemented
+- [ ] Track list visually consistent with theme
+- [ ] Active track clearly highlighted
+- [ ] Interactive icons styled correctly
+- [ ] All list functionality works
+- [ ] Manual testing completed
+- [ ] Code reviewed
+- [ ] Committed to git

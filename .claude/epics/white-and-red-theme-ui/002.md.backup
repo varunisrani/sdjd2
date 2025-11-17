@@ -1,0 +1,62 @@
+---
+name: Apply Theme to MusicPlayer Component
+status: open
+created: 2025-11-17T20:41:45Z
+updated: 2025-11-17T20:41:45Z
+github: [Will be updated when synced to GitHub]
+depends_on: [001]
+parallel: false
+conflicts_with: [003, 004, 005, 006]
+---
+
+# Task: Apply Theme to MusicPlayer Component
+
+## Description
+Refactor the MusicPlayer component to use the white and red theme system by replacing hardcoded colors with CSS variable references and Tailwind theme utilities. Ensure all interactive states use proper theme colors while maintaining existing functionality.
+
+## Acceptance Criteria
+- [ ] White container background using `--color-primary`
+- [ ] Red progress bar and volume controls using `--color-accent`
+- [ ] Red action buttons with darker hover state using `--color-accent-hover`
+- [ ] Dark gray text for metadata using `--color-text-primary`
+- [ ] All hardcoded hex/rgb colors replaced with CSS variables
+- [ ] Interactive states (hover, active, focus) use theme colors
+- [ ] Module CSS file references global variables
+- [ ] No functional regressions - all player controls work correctly
+- [ ] Component renders without console errors
+
+## Technical Details
+**Implementation approach:**
+1. Update className strings to use Tailwind theme utilities
+2. Modify MusicPlayer.module.css to reference CSS variables
+3. Replace hardcoded colors in component JSX/TSX
+4. Ensure focus indicators are visible with 3px minimum outline
+5. Test all interactive controls (play, pause, volume, progress)
+
+**Key considerations:**
+- Maintain existing component architecture
+- Preserve responsive behavior
+- Ensure smooth color transitions on hover
+
+**Code locations/files affected:**
+- `components/MusicPlayer.tsx` (or .jsx)
+- `components/MusicPlayer.module.css`
+
+## Dependencies
+- [ ] Task 001 completed (Design System Foundation)
+- [ ] CSS variables available globally
+- [ ] No external dependencies
+
+## Effort Estimate
+- Size: S
+- Hours: 1.5-2 hours
+- Parallel: false (should be done one component at a time for testing)
+
+## Definition of Done
+- [ ] Code implemented
+- [ ] All player controls functional
+- [ ] Visual appearance matches white/red theme
+- [ ] No console errors or warnings
+- [ ] Manual testing completed
+- [ ] Code reviewed
+- [ ] Committed to git with clear commit message

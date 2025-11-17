@@ -1,0 +1,61 @@
+---
+name: Apply Theme to NowPlaying Component
+status: open
+created: 2025-11-17T20:41:45Z
+updated: 2025-11-17T20:41:45Z
+github: [Will be updated when synced to GitHub]
+depends_on: [002]
+parallel: false
+conflicts_with: [002, 004, 005, 006]
+---
+
+# Task: Apply Theme to NowPlaying Component
+
+## Description
+Refactor the NowPlaying component to use the white and red theme system. Apply white card surface with subtle elevation shadow, red active indicator for currently playing track, and ensure proper text contrast throughout.
+
+## Acceptance Criteria
+- [ ] White card surface with subtle elevation shadow
+- [ ] Red active indicator for currently playing track using `--color-accent`
+- [ ] Light gray inactive state backgrounds using `--color-background`
+- [ ] Proper contrast for all text elements (meets WCAG AA)
+- [ ] All hardcoded colors replaced with CSS variables
+- [ ] Smooth transitions between active/inactive states
+- [ ] Component functionality unchanged
+- [ ] No console errors
+
+## Technical Details
+**Implementation approach:**
+1. Replace hardcoded colors in component with CSS variable references
+2. Update className strings to use Tailwind theme utilities
+3. Modify NowPlaying module CSS to reference global variables
+4. Implement red active track indicator
+5. Ensure text contrast meets accessibility standards
+
+**Key considerations:**
+- Visual distinction between active and inactive tracks
+- Maintain card elevation and shadow effects
+- Preserve any hover/focus behaviors
+
+**Code locations/files affected:**
+- `components/NowPlaying.tsx` (or .jsx)
+- `components/NowPlaying.module.css` (if exists)
+
+## Dependencies
+- [ ] Task 002 completed (MusicPlayer themed)
+- [ ] CSS variables available
+- [ ] Pattern established from MusicPlayer refactoring
+
+## Effort Estimate
+- Size: S
+- Hours: 1.5-2 hours
+- Parallel: false
+
+## Definition of Done
+- [ ] Code implemented
+- [ ] Visual consistency with theme
+- [ ] Active track indicator clearly visible
+- [ ] Text contrast verified
+- [ ] Manual testing completed
+- [ ] Code reviewed
+- [ ] Committed to git
