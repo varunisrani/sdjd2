@@ -1,23 +1,52 @@
-@import 'tailwindcss';
+/* ============================================
+   Modern White Theme Music App Design System
+   ============================================ */
 
-/* Modern White Theme Music App Design System */
 :root {
-  /* Primary Colors - Elegant Blue */
+  /* ==========================================
+     COLOR SYSTEM
+     ========================================== */
+
+  /* Primary Colors - Elegant Blue
+   * Used for primary actions, active states, and brand elements
+   * --primary: Main brand color for buttons, links, and key UI elements
+   * --primary-dark: Darker variant for hover states and emphasis
+   * --primary-light: Light tint for backgrounds and subtle highlights
+   * --primary-hover: Interactive hover state for buttons and controls
+   */
   --primary: #2563eb;
   --primary-dark: #1e40af;
   --primary-light: #dbeafe;
   --primary-hover: #3b82f6;
 
-  /* Secondary Colors */
+  /* Secondary Colors
+   * Used for secondary UI elements, borders, and subtle accents
+   * --secondary: Secondary text and less prominent elements
+   * --secondary-dark: Darker variant for emphasis
+   * --secondary-light: Light backgrounds and subtle surfaces
+   */
   --secondary: #64748b;
   --secondary-dark: #475569;
   --secondary-light: #f1f5f9;
 
-  /* Accent Colors */
+  /* Accent Colors
+   * Used for special highlights, featured content, and visual interest
+   * --accent: Purple accent for special UI elements
+   * --accent-light: Light purple for backgrounds and subtle accents
+   */
   --accent: #8b5cf6;
   --accent-light: #ede9fe;
 
-  /* Neutral Colors - Light Theme */
+  /* Neutral Colors - Light Theme
+   * Base colors for text, backgrounds, and structural elements
+   * --dark: Darkest neutral for primary text
+   * --light-gray: Light gray for borders and dividers
+   * --border: Default border color
+   * --text-primary: Primary text color (high contrast)
+   * --text-secondary: Secondary text color (reduced contrast)
+   * --background: Main page background
+   * --surface: Card and component backgrounds
+   */
   --dark: #0f172a;
   --light-gray: #e2e8f0;
   --border: #e2e8f0;
@@ -26,25 +55,61 @@
   --background: #ffffff;
   --surface: #f8fafc;
 
-  /* Status Colors */
+  /* Status Colors
+   * Semantic colors for feedback, alerts, and status indicators
+   * --success: Positive actions and success states
+   * --warning: Caution and warning messages
+   * --error: Error states and destructive actions
+   * --info: Informational messages and tips
+   */
   --success: #10b981;
   --warning: #f59e0b;
   --error: #ef4444;
   --info: #3b82f6;
 
-  /* Music App Specific Colors */
+  /* Music App Specific Colors
+   * Custom colors for music player components
+   * --now-playing-bg: Background for currently playing track
+   * --track-hover: Hover state for track list items
+   * --player-bg: Music player container background
+   * --control-active: Active state for playback controls
+   */
   --now-playing-bg: #f8fafc;
   --track-hover: #f1f5f9;
   --player-bg: #ffffff;
   --control-active: #2563eb;
 
-  /* Shadows */
+  /* ==========================================
+     ELEVATION SYSTEM (Shadows)
+     ========================================== */
+
+  /* Shadow Scale
+   * Consistent elevation system for depth and hierarchy
+   * --shadow-sm: Subtle elevation for cards and inputs (1-2px)
+   * --shadow-md: Medium elevation for dropdowns and modals (4-6px)
+   * --shadow-lg: High elevation for popovers and tooltips (10-15px)
+   * --shadow-xl: Maximum elevation for overlays and dialogs (20-25px)
+   */
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 
-  /* Spacing System (8px Grid) - Design System Foundation */
+  /* ==========================================
+     SPACING SYSTEM (8px Grid)
+     ========================================== */
+
+  /* Spacing Scale - Design System Foundation
+   * Based on 8px grid system for consistent vertical rhythm
+   * --spacing-1: 8px - Tight spacing for compact elements
+   * --spacing-2: 16px - Default spacing for most UI elements
+   * --spacing-3: 24px - Medium spacing for card padding
+   * --spacing-4: 32px - Large spacing for sections
+   * --spacing-5: 40px - Extra large spacing
+   * --spacing-6: 48px - Section padding
+   * --spacing-7: 56px - Large section spacing
+   * --spacing-8: 64px - Maximum spacing for major sections
+   */
   --spacing-1: 8px;
   --spacing-2: 16px;
   --spacing-3: 24px;
@@ -54,7 +119,20 @@
   --spacing-7: 56px;
   --spacing-8: 64px;
 
-  /* Typography Scale - Design System Foundation */
+  /* ==========================================
+     TYPOGRAPHY SYSTEM
+     ========================================== */
+
+  /* Font Size Scale - Design System Foundation
+   * Harmonious type scale for consistent hierarchy
+   * --text-xs: 12px - Small captions and labels
+   * --text-sm: 14px - Secondary text and metadata
+   * --text-base: 16px - Body text (default)
+   * --text-lg: 18px - Emphasized body text
+   * --text-xl: 24px - Subheadings
+   * --text-2xl: 32px - Section headings
+   * --text-3xl: 48px - Page titles
+   */
   --text-xs: 12px;
   --text-sm: 14px;
   --text-base: 16px;
@@ -63,15 +141,47 @@
   --text-2xl: 32px;
   --text-3xl: 48px;
 
-  /* Line Heights for Typography */
+  /* Line Heights for Typography
+   * Controls vertical spacing within text blocks
+   * --leading-tight: 1.2 - Headings and compact text
+   * --leading-normal: 1.5 - Body text (default)
+   * --leading-relaxed: 1.75 - Long-form content
+   */
   --leading-tight: 1.2;
   --leading-normal: 1.5;
   --leading-relaxed: 1.75;
 
-  /* Letter Spacing */
+  /* Letter Spacing
+   * Fine-tune character spacing for readability
+   * --tracking-tight: -0.025em - Tight spacing for large headings
+   * --tracking-normal: 0 - Default spacing
+   * --tracking-wide: 0.025em - Wider spacing for small text
+   */
   --tracking-tight: -0.025em;
   --tracking-normal: 0;
   --tracking-wide: 0.025em;
+
+  /* ==========================================
+     ANIMATION SYSTEM
+     ========================================== */
+
+  /* Animation Durations
+   * Standardized timing for consistent motion design
+   * --duration-fast: 150ms - Quick interactions (hover, focus)
+   * --duration-normal: 200ms - Standard transitions (modals, dropdowns)
+   * --duration-slow: 300ms - Slower animations (page transitions)
+   */
+  --duration-fast: 150ms;
+  --duration-normal: 200ms;
+  --duration-slow: 300ms;
+
+  /* Easing Functions
+   * Smooth, natural motion curves for animations
+   * --ease-out: cubic-bezier(0.33, 1, 0.68, 1) - Elements entering viewport
+   * --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1) - Smooth transitions
+   */
+  --ease-out: cubic-bezier(0.33, 1, 0.68, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 * {
@@ -111,7 +221,7 @@ p { margin-bottom: 1rem; color: var(--text-secondary); }
   border-radius: 0.5rem;
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all var(--duration-slow) var(--ease-in-out);
   border: none;
   text-decoration: none;
 }
@@ -191,7 +301,7 @@ p { margin-bottom: 1rem; color: var(--text-secondary); }
   border-radius: 0.75rem;
   border: 1px solid var(--border);
   padding: 1.5rem;
-  transition: all 0.3s ease;
+  transition: all var(--duration-slow) var(--ease-in-out);
   box-shadow: var(--shadow-sm);
 }
 
@@ -210,7 +320,7 @@ input, textarea, select {
   font-family: inherit;
   background: var(--background);
   color: var(--text-primary);
-  transition: all 0.2s ease;
+  transition: all var(--duration-normal) var(--ease-out);
 }
 
 input:focus, textarea:focus, select:focus {
@@ -231,7 +341,7 @@ label {
 }
 
 .animate-fade-in-up {
-  animation: fadeInUp 0.6s ease-out;
+  animation: fadeInUp var(--duration-slow) var(--ease-out);
 }
 
 
@@ -328,7 +438,7 @@ label {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all var(--duration-normal) var(--ease-out);
 }
 
 .music-btn:hover {
@@ -357,7 +467,7 @@ label {
 .progress-fill {
   height: 100%;
   background: var(--primary);
-  transition: width 0.1s ease;
+  transition: width var(--duration-fast) var(--ease-out);
 }
 
 /* Design System Foundation - Utility Classes */
@@ -378,7 +488,7 @@ label {
   background: var(--surface);
   border: 1px solid var(--border);
   box-shadow: var(--shadow-sm);
-  transition: all 150ms ease-out;
+  transition: all var(--duration-fast) var(--ease-out);
 }
 
 .card-minimal:hover {
@@ -391,7 +501,7 @@ label {
   padding: var(--spacing-2) var(--spacing-3);
   font-weight: 500;
   border-radius: 0.5rem;
-  transition: all 150ms ease-out;
+  transition: all var(--duration-fast) var(--ease-out);
   border: 1px solid var(--border);
   background: var(--background);
   color: var(--text-primary);
@@ -425,17 +535,17 @@ label {
 /* Animation Utilities - GPU Accelerated (transforms & opacity only) */
 
 .fade-in {
-  animation: fadeIn 150ms ease-out;
+  animation: fadeIn var(--duration-fast) var(--ease-out);
   will-change: opacity;
 }
 
 .slide-up {
-  animation: slideUp 150ms ease-out;
+  animation: slideUp var(--duration-fast) var(--ease-out);
   will-change: transform;
 }
 
 .slide-down {
-  animation: slideDown 150ms ease-out;
+  animation: slideDown var(--duration-fast) var(--ease-out);
   will-change: transform;
 }
 
@@ -472,7 +582,7 @@ label {
 
 /* Search Input - Accessible Focus States */
 .search-input {
-  transition: border-color 150ms ease-out, outline 150ms ease-out;
+  transition: border-color var(--duration-fast) var(--ease-out), outline var(--duration-fast) var(--ease-out);
 }
 
 .search-input:focus {

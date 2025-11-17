@@ -13,12 +13,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Doit Music - Your Red-Themed Music Experience",
-  description: "Discover and enjoy your favorite music with Doit Music's distinctive red theme. Stream, create playlists, and explore new tracks in a beautifully designed music player.",
-  keywords: "music, streaming, playlists, red theme, music player, audio",
+  title: "Doit Music - Modern Music Streaming Experience",
+  description: "Discover and enjoy your favorite music with Doit Music's clean, modern interface. Stream, create playlists, and explore new tracks in a beautifully designed music player.",
+  keywords: "music, streaming, playlists, modern design, music player, audio",
   authors: [{ name: "Doit Music" }],
   viewport: "width=device-width, initial-scale=1",
-  themeColor: "#dc2626",
+  themeColor: "#2563eb",
 };
 
 export default function RootLayout({
@@ -29,7 +29,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-900 text-white`}
+        className={`${geistSans.variable} ${geistMono.variable}`}
       >
         {children}
       </body>

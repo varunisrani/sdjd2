@@ -1,0 +1,554 @@
+/* ============================================
+   TrackList Component - CSS Module
+   ============================================ */
+
+/* Main Container */
+.trackList {
+  border-radius: 0.5rem;
+  background-color: var(--surface);
+}
+
+/* Header Section */
+.header {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+@media (min-width: 768px) {
+  .header {
+    padding: 1.5rem;
+  }
+}
+
+.headerTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+@media (min-width: 768px) {
+  .headerTop {
+    margin-bottom: 1rem;
+  }
+}
+
+.headerTitle {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+@media (min-width: 768px) {
+  .headerTitle {
+    font-size: 1.5rem;
+  }
+}
+
+.trackCount {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+@media (min-width: 768px) {
+  .trackCount {
+    font-size: 0.875rem;
+  }
+}
+
+/* Header Actions */
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+@media (min-width: 768px) {
+  .headerActions {
+    gap: 1rem;
+  }
+}
+
+.playAllButton {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary);
+  border: none;
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-out);
+  min-width: 44px;
+  min-height: 44px;
+}
+
+@media (min-width: 768px) {
+  .playAllButton {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+}
+
+.playAllButton:hover {
+  background-color: var(--primary-hover);
+  transform: scale(1.05);
+}
+
+.playAllButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.playAllButton:disabled:hover {
+  transform: none;
+}
+
+.shuffleButton {
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  background-color: var(--surface);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-out);
+  min-height: 44px;
+}
+
+@media (min-width: 768px) {
+  .shuffleButton {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+  }
+}
+
+.shuffleButton:hover {
+  background-color: var(--track-hover);
+  border-color: var(--primary-light);
+}
+
+/* Table Header - Desktop Only */
+.tableHeader {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .tableHeader {
+    display: grid;
+    grid-template-columns: minmax(50px, 1fr) minmax(50px, 1fr) minmax(200px, 4fr) minmax(150px, 3fr) minmax(100px, 2fr) minmax(50px, 1fr);
+    gap: 1rem;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--border);
+  }
+}
+
+@media (min-width: 768px) {
+  .tableHeader {
+    font-size: 0.875rem;
+  }
+}
+
+.tableHeaderCell {
+  display: flex;
+  align-items: center;
+}
+
+.tableHeaderCellCenter {
+  justify-content: center;
+}
+
+.tableHeaderCellEnd {
+  justify-content: flex-end;
+}
+
+/* Table Container */
+.table {
+  border-top: 1px solid var(--border);
+}
+
+.trackList .table:first-child {
+  border-top: none;
+}
+
+/* Empty State */
+.emptyState {
+  padding: 3rem 1.5rem;
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+@media (min-width: 768px) {
+  .emptyState {
+    padding: 4rem 1.5rem;
+  }
+}
+
+.emptyIcon {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--surface);
+  margin: 0 auto 0.75rem;
+}
+
+@media (min-width: 768px) {
+  .emptyIcon {
+    width: 4rem;
+    height: 4rem;
+    margin-bottom: 1rem;
+  }
+}
+
+.emptyTitle {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+@media (min-width: 768px) {
+  .emptyTitle {
+    font-size: 1.125rem;
+  }
+}
+
+.emptyText {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+/* Track Row */
+.trackRow {
+  padding: 0.75rem;
+  min-height: 4rem;
+  display: flex;
+  gap: 0.75rem;
+  cursor: pointer;
+  background-color: transparent;
+  border-bottom: 1px solid var(--border);
+  transition: background-color var(--duration-fast) var(--ease-out);
+  min-width: 44px;
+  min-height: 44px;
+}
+
+@media (min-width: 768px) {
+  .trackRow {
+    padding: 0.75rem 1rem;
+    min-height: 4.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .trackRow {
+    display: grid;
+    grid-template-columns: minmax(50px, 1fr) minmax(50px, 1fr) minmax(200px, 4fr) minmax(150px, 3fr) minmax(100px, 2fr) minmax(50px, 1fr);
+    gap: 1rem;
+    padding: 0.75rem 1.5rem;
+  }
+}
+
+.trackRow:hover {
+  background-color: var(--track-hover);
+}
+
+.trackRow:active {
+  background-color: rgba(241, 245, 249, 0.7);
+}
+
+.trackRow:last-child {
+  border-bottom: none;
+}
+
+/* Active Track Row */
+.trackRowActive {
+  background-color: var(--track-hover);
+}
+
+.trackRowActive:hover {
+  background-color: rgba(241, 245, 249, 0.5);
+}
+
+.trackRowActive:active {
+  background-color: rgba(241, 245, 249, 0.7);
+}
+
+/* Track Number / Play Button Column */
+.playButtonCell {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .playButtonCell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.trackNumber {
+  color: var(--text-secondary);
+}
+
+.trackRow:hover .trackNumber {
+  display: none;
+}
+
+.playButton {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.trackRow:hover .playButton {
+  display: flex;
+}
+
+.playButton svg {
+  color: var(--primary);
+}
+
+.pauseIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.pauseIcon svg {
+  color: var(--primary);
+}
+
+/* Album Artwork */
+.artworkCell {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .artworkCell {
+    flex-shrink: 1;
+  }
+}
+
+.artwork {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: var(--surface);
+}
+
+@media (min-width: 768px) {
+  .artwork {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+}
+
+.artworkImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.artworkPlaceholder {
+  color: white;
+}
+
+/* Track Info Column */
+.trackInfo {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+@media (min-width: 1024px) {
+  .trackInfo {
+    flex: initial;
+  }
+}
+
+.trackTitle {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-bottom: 0.125rem;
+}
+
+@media (min-width: 768px) {
+  .trackTitle {
+    font-size: 1rem;
+  }
+}
+
+.trackTitleActive {
+  color: var(--primary);
+}
+
+.trackArtist {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (min-width: 768px) {
+  .trackArtist {
+    font-size: 0.875rem;
+  }
+}
+
+/* Album Column - Hidden on Mobile */
+.albumColumn {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .albumColumn {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.albumText {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Duration Column */
+.durationColumn {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+@media (min-width: 1024px) {
+  .durationColumn {
+    justify-content: flex-start;
+  }
+}
+
+.duration {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+@media (min-width: 768px) {
+  .duration {
+    font-size: 0.875rem;
+  }
+}
+
+/* Actions Column */
+.actionsColumn {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.25rem;
+}
+
+@media (min-width: 768px) {
+  .actionsColumn {
+    gap: 0.5rem;
+  }
+}
+
+.actionButton {
+  padding: 0.5rem;
+  border-radius: 50%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: color var(--duration-fast) var(--ease-out), background-color var(--duration-fast) var(--ease-out);
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.actionButton:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.actionButtonLiked {
+  color: var(--primary);
+}
+
+.actionButtonLiked svg {
+  fill: currentColor;
+}
+
+/* Dropdown Menu */
+.dropdownButton {
+  position: relative;
+}
+
+.dropdownMenu {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  margin-top: 0.25rem;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  box-shadow: var(--shadow-xl);
+  padding: 0.5rem 0;
+  min-width: 10rem;
+  z-index: 10;
+}
+
+.dropdownMenuItem {
+  width: 100%;
+  text-align: left;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  color: var(--text-primary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background-color var(--duration-fast) var(--ease-out);
+}
+
+.dropdownMenuItem:hover {
+  background-color: var(--track-hover);
+}
+
+.dropdownMenuItem svg {
+  flex-shrink: 0;
+}

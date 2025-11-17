@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { Search, X, Clock, TrendingUp, Music, Users, Album } from 'lucide-react';
+import styles from './SearchBar.module.css';
 
 interface SearchResult {
   id: string;
@@ -192,11 +193,10 @@ export default function SearchBar({
   const showDropdown = isOpen && (query.length > 0 || showRecentSearches);
 
   return (
-    <div className={`relative w-full md:w-80 ${className}`} ref={dropdownRef}>
-      <div className="relative">
+    <div className={`${styles.searchContainer} ${className}`} ref={dropdownRef}>
+      <div style={{ position: 'relative' }}>
         <Search
-          className="absolute left-3 md:left-4 top-1/2 transform -translate-y-1/2 transition-colors"
-          style={{ color: isOpen ? 'var(--primary)' : 'var(--text-secondary)' }}
+          className={`${styles.searchIcon} ${isOpen ? styles.searchIconFocused : ''}`}
           size={20}
         />
 
@@ -207,22 +207,14 @@ export default function SearchBar({
           onChange={handleInputChange}
           onFocus={handleInputFocus}
           placeholder={placeholder}
-          className="search-input w-full h-11 md:h-10 pl-10 md:pl-12 pr-10 md:pr-12 text-base md:text-sm rounded-lg transition-all"
-          style={{
-            backgroundColor: 'var(--surface)',
-            color: 'var(--text-primary)',
-            border: `1px solid ${isOpen ? 'var(--primary)' : 'var(--border)'}`,
-            outline: isOpen ? '3px solid var(--primary)' : 'none',
-            outlineOffset: '2px'
-          }}
+          className={styles.searchInput}
           aria-label="Search tracks, artists, albums"
         />
 
         {query.length > 0 && (
           <button
             onClick={handleClearSearch}
-            className="touch-target absolute right-2 md:right-3 top-1/2 transform -translate-y-1/2 p-2 rounded-full transition-colors hover:bg-opacity-10"
-            style={{ color: 'var(--text-secondary)' }}
+            className={styles.clearButton}
             aria-label="Clear search"
           >
             <X size={16} />
@@ -231,31 +223,21 @@ export default function SearchBar({
       </div>
 
       {showDropdown && (
-        <div
-          className="absolute top-full left-0 right-0 mt-2 rounded-lg shadow-xl overflow-y-auto z-50 max-h-[60vh] md:max-h-96 fade-in"
-          style={{
-            backgroundColor: 'var(--surface)',
-            border: '1px solid var(--border)'
-          }}
-        >
+        <div className={styles.dropdown}>
           {isLoading ? (
-            <div className="p-4 text-center" style={{ color: 'var(--text-secondary)' }}>
-              <div
-                className="animate-spin rounded-full h-6 w-6 mx-auto"
-                style={{ borderWidth: '2px', borderColor: 'transparent', borderTopColor: 'var(--primary)' }}
-              ></div>
-              <p className="mt-2 text-sm">Searching...</p>
+            <div className={styles.loading}>
+              <div className={styles.spinner}></div>
+              <p className={styles.loadingText}>Searching...</p>
             </div>
           ) : (
             <>
               {query.length === 0 && showRecentSearches && recentSearches.length > 0 && (
                 <div>
-                  <div className="flex items-center justify-between px-3 md:px-4 py-2" style={{ borderBottom: '1px solid var(--border)' }}>
-                    <span className="text-xs md:text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>Recent Searches</span>
+                  <div className={styles.sectionHeader}>
+                    <span className={styles.sectionTitle}>Recent Searches</span>
                     <button
                       onClick={clearRecentSearches}
-                      className="text-xs transition-colors hover:opacity-80"
-                      style={{ color: 'var(--text-secondary)' }}
+                      className={styles.clearAllButton}
                       aria-label="Clear all recent searches"
                     >
                       Clear all
@@ -265,32 +247,31 @@ export default function SearchBar({
                     <button
                       key={index}
                       onClick={() => handleRecentSearch(searchTerm)}
-                      className={`touch-target w-full text-left px-3 md:px-4 py-3 transition-all duration-150 flex items-center gap-3 min-h-[48px]`}
-                      style={{
-                        backgroundColor: selectedIndex === index ? 'var(--track-hover)' : 'transparent',
-                      }}
-                      onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--track-hover)'}
-                      onMouseLeave={(e) => e.currentTarget.style.backgroundColor = selectedIndex === index ? 'var(--track-hover)' : 'transparent'}
+                      className={`${styles.resultItem} ${selectedIndex === index ? styles.resultItemSelected : ''}`}
                     >
-                      <Clock size={16} style={{ color: 'var(--text-secondary)' }} />
-                      <span className="text-sm md:text-base" style={{ color: 'var(--text-primary)' }}>{searchTerm}</span>
+                      <div className={styles.resultIcon}>
+                        <Clock size={16} style={{ color: 'var(--text-secondary)' }} />
+                      </div>
+                      <div className={styles.resultContent}>
+                        <div className={styles.resultTitle}>{searchTerm}</div>
+                      </div>
                     </button>
                   ))}
                 </div>
               )}
 
               {query.length > 0 && results.length === 0 && !isLoading && (
-                <div className="p-6 md:p-8 text-center" style={{ color: 'var(--text-secondary)' }}>
-                  <Search size={32} className="mx-auto mb-3 opacity-50" />
-                  <p className="text-sm">No results found for "{query}"</p>
+                <div className={styles.emptyState}>
+                  <Search size={32} className={styles.emptyIcon} />
+                  <p className={styles.emptyText}>No results found for "{query}"</p>
                 </div>
               )}
 
               {results.length > 0 && (
                 <div>
                   {query.length > 0 && (
-                    <div className="px-3 md:px-4 py-2" style={{ borderBottom: '1px solid var(--border)' }}>
-                      <span className="text-xs md:text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>
+                    <div className={styles.sectionHeader}>
+                      <span className={styles.sectionTitle}>
                         {results.length} results for "{query}"
                       </span>
                     </div>
@@ -299,19 +280,14 @@ export default function SearchBar({
                     <button
                       key={result.id}
                       onClick={() => handleResultClick(result)}
-                      className={`touch-target w-full text-left px-3 md:px-4 py-3 transition-all duration-150 flex items-center gap-3 min-h-[48px]`}
-                      style={{
-                        backgroundColor: selectedIndex === index ? 'var(--track-hover)' : 'transparent',
-                      }}
-                      onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--track-hover)'}
-                      onMouseLeave={(e) => e.currentTarget.style.backgroundColor = selectedIndex === index ? 'var(--track-hover)' : 'transparent'}
+                      className={`${styles.resultItem} ${selectedIndex === index ? styles.resultItemSelected : ''}`}
                     >
-                      <div className="w-8 h-8 rounded flex items-center justify-center flex-shrink-0" style={{ backgroundColor: 'var(--background)' }}>
+                      <div className={styles.resultIcon}>
                         {getIcon(result.type)}
                       </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="font-medium truncate text-sm md:text-base" style={{ color: 'var(--text-primary)' }}>{result.title}</div>
-                        <div className="text-xs md:text-sm truncate" style={{ color: 'var(--text-secondary)' }}>{result.subtitle}</div>
+                      <div className={styles.resultContent}>
+                        <div className={styles.resultTitle}>{result.title}</div>
+                        <div className={styles.resultSubtitle}>{result.subtitle}</div>
                       </div>
                     </button>
                   ))}

@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { Play, Pause, SkipBack, SkipForward, Volume2, VolumeX, Shuffle, Repeat } from 'lucide-react';
+import styles from './MusicPlayer.module.css';
 
 interface Track {
   id: number;
@@ -139,8 +140,29 @@ export default function MusicPlayer({
   };
 
   useEffect(() => {
-    const handleGlobalMouseUp = handleMouseUp;
-    const handleGlobalMouseMove = handleProgressDrag;
+    const handleGlobalMouseUp = () => {
+      if (isDragging && currentTrack.duration) {
+        const audio = audioRef.current;
+        if (audio) {
+          const newTime = (dragProgress / 100) * currentTrack.duration;
+          audio.currentTime = newTime;
+          setCurrentTime(newTime);
+        }
+      }
+      setIsDragging(false);
+    };
+
+    const handleGlobalMouseMove = (e: MouseEvent) => {
+      if (!isDragging) return;
+
+      const progressBar = document.querySelector('[role="progressbar"]');
+      if (!progressBar) return;
+
+      const rect = progressBar.getBoundingClientRect();
+      const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
+      const percentage = (x / rect.width) * 100;
+      setDragProgress(percentage);
+    };
 
     if (isDragging) {
       document.addEventListener('mouseup', handleGlobalMouseUp);
@@ -164,11 +186,16 @@ export default function MusicPlayer({
   const getRepeatIcon = () => {
     switch (repeatMode) {
       case 'all':
-        return <Repeat size={20} className="text-red-600" />;
+        return <Repeat size={20} style={{ color: 'var(--primary)' }} />;
       case 'one':
-        return <div className="relative"><Repeat size={20} className="text-red-600" /><span className="absolute -top-1 -right-1 text-xs text-red-600">1</span></div>;
+        return (
+          <div className={styles.repeatButton}>
+            <Repeat size={20} style={{ color: 'var(--primary)' }} />
+            <span className={styles.repeatBadge} style={{ color: 'var(--primary)' }}>1</span>
+          </div>
+        );
       default:
-        return <Repeat size={20} className="text-gray-400" />;
+        return <Repeat size={20} />;
     }
   };
 
@@ -177,12 +204,12 @@ export default function MusicPlayer({
       <audio ref={audioRef} src={isValidUrl(currentTrack.url) ? currentTrack.url : ''} />
 
       {/* Mobile-First Responsive Music Player */}
-      <div className="p-2 md:p-4 border-t" style={{ backgroundColor: 'var(--surface)', borderColor: 'var(--border)' }}>
-        <div className="max-w-7xl mx-auto">
+      <div className={styles.player}>
+        <div className={styles.playerContent}>
           {/* Progress Bar */}
-          <div className="mb-2 md:mb-3">
+          <div className={styles.progressSection}>
             <div
-              className={`progress-bar cursor-pointer group ${isDragging ? 'dragging' : ''}`}
+              className={`${styles.progressBar} ${isDragging ? styles.dragging : ''}`}
               onClick={handleProgressClick}
               onMouseDown={handleMouseDown}
               role="progressbar"
@@ -192,65 +219,57 @@ export default function MusicPlayer({
               aria-label="Music progress"
               tabIndex={0}
               style={{
-                willChange: isDragging ? 'width' : 'auto',
-                transition: isDragging ? 'none' : 'all 100ms ease-out'
+                willChange: isDragging ? 'width' : 'auto'
               }}
             >
               <div
-                className="progress-fill relative group-hover:opacity-90 transition-opacity"
+                className={styles.progressFill}
                 style={{
                   width: `${progressPercentage}%`,
                   willChange: isDragging ? 'width' : 'auto'
                 }}
               >
-                <div
-                  className="absolute right-0 top-1/2 transform -translate-y-1/2 w-4 h-4 rounded-full opacity-0 group-hover:opacity-100 transition-all"
-                  style={{
-                    backgroundColor: 'var(--primary)',
-                    backfaceVisibility: 'hidden'
-                  }}
-                />
+                <div className={styles.progressThumb} />
               </div>
             </div>
-            <div className="flex justify-between text-xs text-gray-400 mt-1">
+            <div className={styles.timeDisplay}>
               <span>{formatTime(currentTime)}</span>
               <span>{formatTime(currentTrack.duration)}</span>
             </div>
           </div>
 
           {/* Mobile: Vertical Layout | Desktop: Horizontal Layout */}
-          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3 lg:gap-6">
+          <div className={styles.mainLayout}>
             {/* Track Info */}
-            <div className="flex items-center gap-2 md:gap-3 min-w-0">
-              <div className="w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 bg-gray-800 rounded flex-shrink-0 flex items-center justify-center">
-                <div className="w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 rounded-full flex items-center justify-center" style={{ backgroundColor: 'var(--primary)' }}>
-                  <Play size={12} className="text-white ml-0.5" />
+            <div className={styles.trackInfo}>
+              <div className={styles.artwork}>
+                <div className={styles.artworkIcon}>
+                  <Play size={12} style={{ color: 'white', marginLeft: '0.125rem' }} />
                 </div>
               </div>
-              <div className="min-w-0 flex-1">
-                <h4 className="font-medium truncate text-sm md:text-base" style={{ color: 'var(--text-primary)' }}>
+              <div className={styles.trackDetails}>
+                <h4 className={styles.trackTitle}>
                   {currentTrack.title}
                 </h4>
-                <p className="truncate text-xs md:text-sm" style={{ color: 'var(--text-secondary)' }}>
+                <p className={styles.trackArtist}>
                   {currentTrack.artist}
                 </p>
               </div>
             </div>
 
             {/* Control Buttons - Mobile: Centered | Desktop: Inline */}
-            <div className="flex items-center justify-center gap-2 md:gap-3 lg:gap-4">
+            <div className={styles.controls}>
               <button
                 onClick={onToggleShuffle}
-                className={`touch-target p-2 rounded-full transition-all duration-150 ${isShuffled ? 'text-primary' : 'text-gray-400 hover:text-primary'}`}
+                className={`${styles.controlButton} ${isShuffled ? styles.active : ''}`}
                 aria-label="Toggle shuffle"
-                style={{ color: isShuffled ? 'var(--primary)' : undefined }}
               >
                 <Shuffle size={18} />
               </button>
 
               <button
                 onClick={onPrevious}
-                className="touch-target music-btn music-btn-small"
+                className={`${styles.controlButton} ${styles.small}`}
                 aria-label="Previous track"
               >
                 <SkipBack size={16} />
@@ -258,16 +277,15 @@ export default function MusicPlayer({
 
               <button
                 onClick={onPlayPause}
-                className="touch-target w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center transition-all duration-150"
-                style={{ backgroundColor: 'var(--primary)' }}
+                className={styles.playButton}
                 aria-label={isPlaying ? 'Pause' : 'Play'}
               >
-                {isPlaying ? <Pause size={20} /> : <Play size={20} className="ml-0.5" />}
+                {isPlaying ? <Pause size={20} /> : <Play size={20} style={{ marginLeft: '0.125rem' }} />}
               </button>
 
               <button
                 onClick={onNext}
-                className="touch-target music-btn music-btn-small"
+                className={`${styles.controlButton} ${styles.small}`}
                 aria-label="Next track"
               >
                 <SkipForward size={16} />
@@ -275,7 +293,7 @@ export default function MusicPlayer({
 
               <button
                 onClick={onToggleRepeat}
-                className="touch-target p-2 rounded-full transition-all duration-150 hover:text-primary"
+                className={styles.controlButton}
                 aria-label={`Repeat: ${repeatMode}`}
               >
                 {getRepeatIcon()}
@@ -283,25 +301,24 @@ export default function MusicPlayer({
             </div>
 
             {/* Volume Control - Mobile: Full Width Below | Desktop: Right Side */}
-            <div className="flex items-center gap-2 md:gap-3 lg:min-w-[160px]">
+            <div className={styles.volumeSection}>
               <button
                 onClick={() => setIsMuted(!isMuted)}
-                className="touch-target p-2 text-gray-400 hover:text-primary transition-colors duration-150"
+                className={styles.volumeButton}
                 aria-label={isMuted ? 'Unmute' : 'Mute'}
               >
                 {isMuted || volume === 0 ? <VolumeX size={18} /> : <Volume2 size={18} />}
               </button>
-              <div className="flex-1 lg:w-24">
+              <div className={styles.volumeSliderContainer}>
                 <input
                   type="range"
                   min="0"
                   max="100"
                   value={volume}
                   onChange={(e) => onVolumeChange(Number(e.target.value))}
-                  className="w-full h-2 rounded-full appearance-none cursor-pointer touch-target"
+                  className={styles.volumeSlider}
                   style={{
-                    background: `linear-gradient(to right, var(--primary) 0%, var(--primary) ${volume}%, var(--border) ${volume}%, var(--border) 100%)`,
-                    minHeight: '44px'
+                    background: `linear-gradient(to right, var(--primary) 0%, var(--primary) ${volume}%, var(--border) ${volume}%, var(--border) 100%)`
                   }}
                   aria-label="Volume"
                 />

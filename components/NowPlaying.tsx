@@ -155,7 +155,17 @@ export default function NowPlaying({
 
   useEffect(() => {
     const handleGlobalMouseUp = handleMouseUp;
-    const handleGlobalMouseMove = handleProgressDrag;
+    const handleGlobalMouseMove = (e: MouseEvent) => {
+      if (!isDragging) return;
+
+      const progressBar = document.querySelector('[data-progress-bar]') as HTMLElement;
+      if (!progressBar) return;
+
+      const rect = progressBar.getBoundingClientRect();
+      const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
+      const percentage = (x / rect.width) * 100;
+      setDragProgress(percentage);
+    };
 
     if (isDragging) {
       document.addEventListener('mouseup', handleGlobalMouseUp);
@@ -269,6 +279,8 @@ export default function NowPlaying({
               className="progress-bar cursor-pointer group mb-2"
               onClick={handleProgressClick}
               onMouseDown={handleMouseDown}
+              onMouseMove={handleProgressDrag}
+              data-progress-bar
               role="progressbar"
               aria-valuenow={Math.round(progressPercentage)}
               aria-valuemin={0}
