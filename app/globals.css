@@ -1,30 +1,30 @@
 @import 'tailwindcss';
 
-/* Doit Red Theme Music App Design System */
+/* Modern White Theme Music App Design System */
 :root {
-  /* Primary Red Colors */
-  --primary: #dc2626;
-  --primary-dark: #991b1b;
-  --primary-light: #fee2e2;
-  --primary-hover: #ef4444;
+  /* Primary Colors - Elegant Blue */
+  --primary: #2563eb;
+  --primary-dark: #1e40af;
+  --primary-light: #dbeafe;
+  --primary-hover: #3b82f6;
 
   /* Secondary Colors */
-  --secondary: #1f2937;
-  --secondary-dark: #111827;
-  --secondary-light: #f3f4f6;
+  --secondary: #64748b;
+  --secondary-dark: #475569;
+  --secondary-light: #f1f5f9;
 
   /* Accent Colors */
-  --accent: #f59e0b;
-  --accent-light: #fef3c7;
+  --accent: #8b5cf6;
+  --accent-light: #ede9fe;
 
-  /* Neutral Colors - Dark Theme */
-  --dark: #000000;
-  --light-gray: #374151;
-  --border: #4b5563;
-  --text-primary: #ffffff;
-  --text-secondary: #d1d5db;
-  --background: #111827;
-  --surface: #1f2937;
+  /* Neutral Colors - Light Theme */
+  --dark: #0f172a;
+  --light-gray: #e2e8f0;
+  --border: #e2e8f0;
+  --text-primary: #0f172a;
+  --text-secondary: #64748b;
+  --background: #ffffff;
+  --surface: #f8fafc;
 
   /* Status Colors */
   --success: #10b981;
@@ -33,10 +33,45 @@
   --info: #3b82f6;
 
   /* Music App Specific Colors */
-  --now-playing-bg: #1f2937;
-  --track-hover: #374151;
-  --player-bg: #000000;
-  --control-active: #dc2626;
+  --now-playing-bg: #f8fafc;
+  --track-hover: #f1f5f9;
+  --player-bg: #ffffff;
+  --control-active: #2563eb;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+  /* Spacing System (8px Grid) - Design System Foundation */
+  --spacing-1: 8px;
+  --spacing-2: 16px;
+  --spacing-3: 24px;
+  --spacing-4: 32px;
+  --spacing-5: 40px;
+  --spacing-6: 48px;
+  --spacing-7: 56px;
+  --spacing-8: 64px;
+
+  /* Typography Scale - Design System Foundation */
+  --text-xs: 12px;
+  --text-sm: 14px;
+  --text-base: 16px;
+  --text-lg: 18px;
+  --text-xl: 24px;
+  --text-2xl: 32px;
+  --text-3xl: 48px;
+
+  /* Line Heights for Typography */
+  --leading-tight: 1.2;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.75;
+
+  /* Letter Spacing */
+  --tracking-tight: -0.025em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.025em;
 }
 
 * {
@@ -157,11 +192,13 @@ p { margin-bottom: 1rem; color: var(--text-secondary); }
   border: 1px solid var(--border);
   padding: 1.5rem;
   transition: all 0.3s ease;
+  box-shadow: var(--shadow-sm);
 }
 
 .card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--primary-light);
 }
 
 input, textarea, select {
@@ -171,12 +208,15 @@ input, textarea, select {
   border-radius: 0.5rem;
   font-size: 1rem;
   font-family: inherit;
+  background: var(--background);
+  color: var(--text-primary);
+  transition: all 0.2s ease;
 }
 
 input:focus, textarea:focus, select:focus {
   outline: none;
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+  box-shadow: 0 0 0 3px var(--primary-light);
 }
 
 label {
@@ -319,3 +359,119 @@ label {
   background: var(--primary);
   transition: width 0.1s ease;
 }
+
+/* Design System Foundation - Utility Classes */
+
+/* Touch Target - Minimum 44x44px for mobile accessibility */
+.touch-target {
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Minimalist Card */
+.card-minimal {
+  padding: var(--spacing-3);
+  border-radius: 0.75rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  transition: all 150ms ease-out;
+}
+
+.card-minimal:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--primary-light);
+}
+
+/* Minimalist Button */
+.btn-minimal {
+  padding: var(--spacing-2) var(--spacing-3);
+  font-weight: 500;
+  border-radius: 0.5rem;
+  transition: all 150ms ease-out;
+  border: 1px solid var(--border);
+  background: var(--background);
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.btn-minimal:hover {
+  background: var(--surface);
+  border-color: var(--primary-light);
+}
+
+/* Text Utilities */
+.text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Animation Utilities - GPU Accelerated (transforms & opacity only) */
+
+.fade-in {
+  animation: fadeIn 150ms ease-out;
+  will-change: opacity;
+}
+
+.slide-up {
+  animation: slideUp 150ms ease-out;
+  will-change: transform;
+}
+
+.slide-down {
+  animation: slideDown 150ms ease-out;
+  will-change: transform;
+}
+
+/* Keyframes - Using GPU-friendly properties (transform, opacity) */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(16px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-16px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Breakpoints Reference (Tailwind defaults)
+ * Mobile: 0-640px (default/base styles)
+ * Tablet: 641-1024px (md: 768px)
+ * Desktop: 1025px+ (lg: 1024px)
+ */
