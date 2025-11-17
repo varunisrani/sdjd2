@@ -176,12 +176,13 @@ export default function MusicPlayer({
     <>
       <audio ref={audioRef} src={isValidUrl(currentTrack.url) ? currentTrack.url : ''} />
 
-      <div className="p-4 border-t" style={{ backgroundColor: 'var(--surface)', borderColor: 'var(--border)' }}>
+      {/* Mobile-First Responsive Music Player */}
+      <div className="p-2 md:p-4 border-t" style={{ backgroundColor: 'var(--surface)', borderColor: 'var(--border)' }}>
         <div className="max-w-7xl mx-auto">
           {/* Progress Bar */}
-          <div className="mb-3">
+          <div className="mb-2 md:mb-3">
             <div
-              className="progress-bar cursor-pointer group"
+              className={`progress-bar cursor-pointer group ${isDragging ? 'dragging' : ''}`}
               onClick={handleProgressClick}
               onMouseDown={handleMouseDown}
               role="progressbar"
@@ -190,12 +191,25 @@ export default function MusicPlayer({
               aria-valuemax={100}
               aria-label="Music progress"
               tabIndex={0}
+              style={{
+                willChange: isDragging ? 'width' : 'auto',
+                transition: isDragging ? 'none' : 'all 100ms ease-out'
+              }}
             >
               <div
                 className="progress-fill relative group-hover:opacity-90 transition-opacity"
-                style={{ width: `${progressPercentage}%` }}
+                style={{
+                  width: `${progressPercentage}%`,
+                  willChange: isDragging ? 'width' : 'auto'
+                }}
               >
-                <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-4 h-4 rounded-full opacity-0 group-hover:opacity-100 transition-all" style={{ backgroundColor: 'var(--primary)' }} />
+                <div
+                  className="absolute right-0 top-1/2 transform -translate-y-1/2 w-4 h-4 rounded-full opacity-0 group-hover:opacity-100 transition-all"
+                  style={{
+                    backgroundColor: 'var(--primary)',
+                    backfaceVisibility: 'hidden'
+                  }}
+                />
               </div>
             </div>
             <div className="flex justify-between text-xs text-gray-400 mt-1">
@@ -204,80 +218,92 @@ export default function MusicPlayer({
             </div>
           </div>
 
-          {/* Player Controls */}
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-6">
-              {/* Track Info */}
-              <div className="flex items-center space-x-3 min-w-0 max-w-xs">
-                <div className="w-12 h-12 bg-gray-800 rounded flex-shrink-0 flex items-center justify-center">
-                  <div className="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center">
-                    <Play size={12} className="text-white ml-0.5" />
-                  </div>
-                </div>
-                <div className="min-w-0">
-                  <h4 className="font-medium text-white truncate">{currentTrack.title}</h4>
-                  <p className="text-sm text-gray-400 truncate">{currentTrack.artist}</p>
+          {/* Mobile: Vertical Layout | Desktop: Horizontal Layout */}
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3 lg:gap-6">
+            {/* Track Info */}
+            <div className="flex items-center gap-2 md:gap-3 min-w-0">
+              <div className="w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 bg-gray-800 rounded flex-shrink-0 flex items-center justify-center">
+                <div className="w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 rounded-full flex items-center justify-center" style={{ backgroundColor: 'var(--primary)' }}>
+                  <Play size={12} className="text-white ml-0.5" />
                 </div>
               </div>
-
-              {/* Control Buttons */}
-              <div className="flex items-center space-x-4">
-                <button
-                  onClick={onToggleShuffle}
-                  className={`p-2 rounded-full transition-colors ${isShuffled ? 'text-red-600' : 'text-gray-400 hover:text-white'}`}
-                >
-                  <Shuffle size={18} />
-                </button>
-
-                <button
-                  onClick={onPrevious}
-                  className="music-btn music-btn-small"
-                >
-                  <SkipBack size={16} />
-                </button>
-
-                <button
-                  onClick={onPlayPause}
-                  className="music-btn bg-red-600 hover:bg-red-700"
-                >
-                  {isPlaying ? <Pause size={20} /> : <Play size={20} className="ml-0.5" />}
-                </button>
-
-                <button
-                  onClick={onNext}
-                  className="music-btn music-btn-small"
-                >
-                  <SkipForward size={16} />
-                </button>
-
-                <button
-                  onClick={onToggleRepeat}
-                  className="p-2 rounded-full transition-colors hover:text-white"
-                >
-                  {getRepeatIcon()}
-                </button>
+              <div className="min-w-0 flex-1">
+                <h4 className="font-medium truncate text-sm md:text-base" style={{ color: 'var(--text-primary)' }}>
+                  {currentTrack.title}
+                </h4>
+                <p className="truncate text-xs md:text-sm" style={{ color: 'var(--text-secondary)' }}>
+                  {currentTrack.artist}
+                </p>
               </div>
             </div>
 
-            {/* Volume Control */}
-            <div className="flex items-center space-x-3">
+            {/* Control Buttons - Mobile: Centered | Desktop: Inline */}
+            <div className="flex items-center justify-center gap-2 md:gap-3 lg:gap-4">
+              <button
+                onClick={onToggleShuffle}
+                className={`touch-target p-2 rounded-full transition-all duration-150 ${isShuffled ? 'text-primary' : 'text-gray-400 hover:text-primary'}`}
+                aria-label="Toggle shuffle"
+                style={{ color: isShuffled ? 'var(--primary)' : undefined }}
+              >
+                <Shuffle size={18} />
+              </button>
+
+              <button
+                onClick={onPrevious}
+                className="touch-target music-btn music-btn-small"
+                aria-label="Previous track"
+              >
+                <SkipBack size={16} />
+              </button>
+
+              <button
+                onClick={onPlayPause}
+                className="touch-target w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center transition-all duration-150"
+                style={{ backgroundColor: 'var(--primary)' }}
+                aria-label={isPlaying ? 'Pause' : 'Play'}
+              >
+                {isPlaying ? <Pause size={20} /> : <Play size={20} className="ml-0.5" />}
+              </button>
+
+              <button
+                onClick={onNext}
+                className="touch-target music-btn music-btn-small"
+                aria-label="Next track"
+              >
+                <SkipForward size={16} />
+              </button>
+
+              <button
+                onClick={onToggleRepeat}
+                className="touch-target p-2 rounded-full transition-all duration-150 hover:text-primary"
+                aria-label={`Repeat: ${repeatMode}`}
+              >
+                {getRepeatIcon()}
+              </button>
+            </div>
+
+            {/* Volume Control - Mobile: Full Width Below | Desktop: Right Side */}
+            <div className="flex items-center gap-2 md:gap-3 lg:min-w-[160px]">
               <button
                 onClick={() => setIsMuted(!isMuted)}
-                className="text-gray-400 hover:text-white transition-colors"
+                className="touch-target p-2 text-gray-400 hover:text-primary transition-colors duration-150"
+                aria-label={isMuted ? 'Unmute' : 'Mute'}
               >
                 {isMuted || volume === 0 ? <VolumeX size={18} /> : <Volume2 size={18} />}
               </button>
-              <div className="w-24">
+              <div className="flex-1 lg:w-24">
                 <input
                   type="range"
                   min="0"
                   max="100"
                   value={volume}
                   onChange={(e) => onVolumeChange(Number(e.target.value))}
-                  className="w-full h-1 bg-gray-700 rounded-full appearance-none cursor-pointer slider"
+                  className="w-full h-2 rounded-full appearance-none cursor-pointer touch-target"
                   style={{
-                    background: `linear-gradient(to right, #dc2626 0%, #dc2626 ${volume}%, #4b5563 ${volume}%, #4b5563 100%)`
+                    background: `linear-gradient(to right, var(--primary) 0%, var(--primary) ${volume}%, var(--border) ${volume}%, var(--border) 100%)`,
+                    minHeight: '44px'
                   }}
+                  aria-label="Volume"
                 />
               </div>
             </div>
