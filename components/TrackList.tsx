@@ -78,101 +78,89 @@ export default function TrackList({
     setIsDropdownOpen(null);
   };
 
-  const getGridCols = () => {
-    const cols = [];
-    cols.push(1); // #
-    if (!compact) cols.push(1); // Artwork
-    cols.push(showAlbum ? 5 : 7); // Title (+ Artist if no album)
-    if (showAlbum) cols.push(3); // Album
-    if (showArtist && !showAlbum) cols.push(2); // Artist
-    cols.push(showDuration ? 2 : 3); // Duration or empty
-    cols.push(1); // Actions
-    return `grid-cols-${cols.length}`;
-  };
-
-  const getHeaderCols = () => {
-    if (!compact && showAlbum && showArtist && showDuration) {
-      return 'grid-cols-12';
-    } else if (!compact && !showAlbum && showArtist && showDuration) {
-      return 'grid-cols-11';
-    } else if (!compact && showAlbum && !showArtist && showDuration) {
-      return 'grid-cols-11';
-    } else if (compact && showAlbum && showArtist && showDuration) {
-      return 'grid-cols-11';
-    }
-    return 'grid-cols-12';
-  };
-
   return (
     <div className="rounded-lg" style={{ backgroundColor: 'var(--surface)' }}>
       {/* Header */}
-      <div className="p-6 border-b" style={{ borderColor: 'var(--border)' }}>
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-2xl font-bold">{title}</h2>
-          <span className="text-gray-400">{tracks.length} tracks</span>
+      <div className="p-4 md:p-6 border-b" style={{ borderColor: 'var(--border)' }}>
+        <div className="flex items-center justify-between mb-3 md:mb-4">
+          <h2 className="text-lg md:text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>{title}</h2>
+          <span className="text-xs md:text-sm" style={{ color: 'var(--text-secondary)' }}>{tracks.length} tracks</span>
         </div>
 
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center gap-3 md:gap-4">
           <button
             onClick={() => tracks.length > 0 && onPlayAll()}
-            className="music-btn music-btn-large bg-red-600 hover:bg-red-700"
+            className="touch-target w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center transition-all duration-150"
+            style={{ backgroundColor: 'var(--primary)' }}
             disabled={tracks.length === 0}
+            aria-label="Play all"
           >
             {currentTrackId === tracks[0]?.id && isPlaying ? (
-              <Pause size={24} />
+              <Pause size={20} className="text-white" />
             ) : (
-              <Play size={24} className="ml-1" />
+              <Play size={20} className="ml-1 text-white" />
             )}
           </button>
 
           <button
             onClick={onShufflePlay}
-            className="px-6 py-3 bg-gray-800 hover:bg-gray-700 text-white rounded-full transition-colors"
+            className="px-4 py-2 md:px-6 md:py-3 rounded-full transition-all duration-150 text-sm md:text-base font-medium"
+            style={{ backgroundColor: 'var(--surface)', color: 'var(--text-primary)', border: '1px solid var(--border)' }}
           >
             Shuffle
           </button>
         </div>
       </div>
 
-      {/* Track List Header */}
-      <div className={`grid ${getHeaderCols()} gap-4 px-6 py-3 text-sm text-gray-400 font-medium border-b border-gray-800`}>
+      {/* Desktop Table Header - Hidden on Mobile */}
+      <div className="hidden lg:grid lg:grid-cols-12 gap-4 px-4 md:px-6 py-3 text-xs md:text-sm font-medium border-b" style={{ color: 'var(--text-secondary)', borderColor: 'var(--border)' }}>
         <div className="flex items-center justify-center">#</div>
-        {!compact && <div className="flex items-center justify-center"></div>}
-        <div className="flex items-center">TITLE</div>
-        {showAlbum && <div className="flex items-center">ALBUM</div>}
-        {showArtist && !showAlbum && <div className="flex items-center">ARTIST</div>}
-        {showDuration && <div className="flex items-center">DURATION</div>}
-        <div></div>
+        <div className="col-span-1"></div>
+        <div className="col-span-4 flex items-center">TITLE</div>
+        {showAlbum && <div className="col-span-3 flex items-center">ALBUM</div>}
+        {showDuration && <div className="col-span-2 flex items-center">DURATION</div>}
+        <div className="flex items-center justify-end"></div>
       </div>
 
-      {/* Track List */}
-      <div className="divide-y divide-gray-800">
+      {/* Track List - Mobile-First Responsive */}
+      <div className="divide-y" style={{ borderColor: 'var(--border)' }}>
         {tracks.length === 0 ? (
-          <div className="px-6 py-16 text-center text-gray-400">
-            <div className="w-16 h-16 bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Plus size={24} />
+          <div className="px-6 py-12 md:py-16 text-center" style={{ color: 'var(--text-secondary)' }}>
+            <div className="w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4" style={{ backgroundColor: 'var(--surface)' }}>
+              <Plus size={20} />
             </div>
-            <h3 className="text-lg font-medium mb-2">No tracks found</h3>
-            <p>Try searching for something else.</p>
+            <h3 className="text-base md:text-lg font-medium mb-2" style={{ color: 'var(--text-primary)' }}>No tracks found</h3>
+            <p className="text-sm">Try searching for something else.</p>
           </div>
         ) : (
           tracks.map((track, index) => (
             <div
               key={track.id}
-              className={`grid ${getHeaderCols()} gap-4 px-6 py-3 group hover:bg-gray-800 cursor-pointer transition-colors ${
-                currentTrackId === track.id ? 'bg-gray-800' : ''
-              }`}
+              onClick={() => handleTrackPlay(track)}
+              className={`
+                px-3 py-3 md:px-4 md:py-3 lg:px-6
+                min-h-[64px] md:min-h-[72px]
+                flex lg:grid lg:grid-cols-12 gap-3 md:gap-4
+                cursor-pointer transition-all duration-150
+                hover:bg-opacity-50 active:bg-opacity-70
+                group touch-target
+                ${currentTrackId === track.id ? 'bg-opacity-30' : ''}
+              `}
+              style={{ backgroundColor: currentTrackId === track.id ? 'var(--track-hover)' : 'transparent' }}
               onMouseEnter={() => setSelectedTrack(track.id)}
               onMouseLeave={() => setSelectedTrack(null)}
             >
-              <div className="flex items-center justify-center">
+              {/* Mobile Layout: Artwork + Info | Desktop: Grid */}
+
+              {/* Track Number / Play Button - Desktop Only */}
+              <div className="hidden lg:flex items-center justify-center">
                 {currentTrackId === track.id && isPlaying ? (
                   <div className="w-5 h-5 flex items-center justify-center">
-                    <Pause size={16} className="text-red-600" />
+                    <Pause size={16} style={{ color: 'var(--primary)' }} />
                   </div>
                 ) : (
-                  <div className="flex items-center space-x-2">
-                    <span className="text-gray-400 group-hover:hidden">
+                  <>
+                    <span className="group-hover:hidden" style={{ color: 'var(--text-secondary)' }}>
                       {index + 1}
                     </span>
                     <button
@@ -180,63 +168,61 @@ export default function TrackList({
                         e.stopPropagation();
                         handleTrackPlay(track);
                       }}
-                      className="hidden group-hover:block"
+                      className="hidden group-hover:flex items-center justify-center w-5 h-5"
                     >
-                      <div className="w-5 h-5 flex items-center justify-center">
-                        <Play size={16} className="text-red-600 ml-0.5" />
-                      </div>
+                      <Play size={16} style={{ color: 'var(--primary)' }} className="ml-0.5" />
                     </button>
-                  </div>
+                  </>
                 )}
               </div>
 
-              {!compact && (
-                <div className="flex items-center justify-center">
-                  <div className="w-10 h-10 bg-gray-700 rounded flex items-center justify-center flex-shrink-0">
-                    {track.artwork ? (
-                      <img
-                        src={track.artwork}
-                        alt={track.title}
-                        className="w-full h-full object-cover rounded"
-                      />
-                    ) : (
-                      <Play size={12} className="text-white ml-0.5" />
-                    )}
-                  </div>
-                </div>
-              )}
-
-              <div className="flex items-center space-x-3 min-w-0">
-                <div className="min-w-0">
-                  <div className={`font-medium truncate ${
-                    currentTrackId === track.id ? 'text-red-600' : 'text-white'
-                  }`}>
-                    {track.title}
-                  </div>
-                  {showArtist && (
-                    <div className="text-sm text-gray-400 truncate">
-                      {track.artist}
-                    </div>
+              {/* Album Artwork */}
+              <div className="flex-shrink-0 lg:col-span-1 flex items-center">
+                <div className="w-12 h-12 md:w-14 md:h-14 rounded flex items-center justify-center overflow-hidden" style={{ backgroundColor: 'var(--surface)' }}>
+                  {track.artwork ? (
+                    <img
+                      src={track.artwork}
+                      alt={track.title}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <Play size={14} className="text-white ml-0.5" />
                   )}
                 </div>
               </div>
 
+              {/* Track Info - Mobile: Stacked | Desktop: Grid */}
+              <div className="flex-1 min-w-0 lg:col-span-4 flex flex-col justify-center">
+                <div className={`font-medium truncate text-sm md:text-base mb-0.5 ${
+                  currentTrackId === track.id ? 'text-primary' : ''
+                }`}
+                style={{ color: currentTrackId === track.id ? 'var(--primary)' : 'var(--text-primary)' }}>
+                  {track.title}
+                </div>
+                <div className="truncate text-xs md:text-sm" style={{ color: 'var(--text-secondary)' }}>
+                  {track.artist}
+                </div>
+              </div>
+
+              {/* Album - Desktop Only */}
               {showAlbum && (
-                <div className="flex items-center">
-                  <span className="text-sm text-gray-400 truncate">{track.album}</span>
+                <div className="hidden lg:flex lg:col-span-3 items-center">
+                  <span className="text-sm truncate" style={{ color: 'var(--text-secondary)' }}>{track.album}</span>
                 </div>
               )}
 
+              {/* Duration - Mobile: Right Side | Desktop: Grid */}
               {showDuration && (
-                <div className="flex items-center">
-                  <span className="text-sm text-gray-400">
+                <div className="flex-shrink-0 lg:col-span-2 flex items-center justify-end lg:justify-start">
+                  <span className="text-xs md:text-sm" style={{ color: 'var(--text-secondary)' }}>
                     {formatDuration(track.duration)}
                   </span>
                 </div>
               )}
 
-              <div className="flex items-center justify-center space-x-2">
-                {selectedTrack === track.id && (
+              {/* Actions - Show on Hover/Touch */}
+              <div className="flex-shrink-0 lg:col-span-1 flex items-center justify-end gap-1 md:gap-2">
+                {(selectedTrack === track.id || currentTrackId === track.id) && (
                   <>
                     {track.isLiked !== undefined && (
                       <button
@@ -244,64 +230,38 @@ export default function TrackList({
                           e.stopPropagation();
                           onLikeTrack(track.id);
                         }}
-                        className={`p-1 transition-colors ${
-                          track.isLiked
-                            ? 'text-red-600'
-                            : 'text-gray-400 hover:text-white'
+                        className={`touch-target p-2 rounded-full transition-colors duration-150 ${
+                          track.isLiked ? '' : 'hover:bg-opacity-10'
                         }`}
+                        style={{ color: track.isLiked ? 'var(--primary)' : 'var(--text-secondary)' }}
+                        aria-label={track.isLiked ? 'Unlike' : 'Like'}
                       >
                         <Heart size={16} className={track.isLiked ? 'fill-current' : ''} />
                       </button>
                     )}
 
-                    {track.isDownloaded !== undefined && (
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          onDownloadTrack(track.id);
-                        }}
-                        className={`p-1 transition-colors ${
-                          track.isDownloaded
-                            ? 'text-green-600'
-                            : 'text-gray-400 hover:text-white'
-                        }`}
-                      >
-                        <Download size={16} />
-                      </button>
-                    )}
-
                     <button
                       onClick={(e) => handleDropdownToggle(track.id, e)}
-                      className="p-1 text-gray-400 hover:text-white transition-colors relative"
+                      className="touch-target p-2 rounded-full transition-colors duration-150 hover:bg-opacity-10 relative"
+                      style={{ color: 'var(--text-secondary)' }}
+                      aria-label="More options"
                     >
                       <MoreHorizontal size={16} />
 
                       {isDropdownOpen === track.id && (
-                        <div className="absolute right-0 top-full mt-1 bg-gray-800 rounded-lg shadow-xl border border-gray-700 py-2 min-w-[140px] z-10">
+                        <div className="absolute right-0 top-full mt-1 rounded-lg shadow-xl py-2 min-w-[160px] z-10" style={{ backgroundColor: 'var(--surface)', border: '1px solid var(--border)' }}>
                           <button
                             onClick={(e) => {
                               e.stopPropagation();
                               onAddToPlaylist(track.id);
                               handleDropdownClose();
                             }}
-                            className="w-full text-left px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white flex items-center space-x-2"
+                            className="w-full text-left px-4 py-2 text-sm flex items-center gap-2 transition-colors duration-150"
+                            style={{ color: 'var(--text-primary)' }}
                           >
                             <Plus size={14} />
                             <span>Add to Playlist</span>
                           </button>
-                          {track.isLiked !== undefined && (
-                            <button
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                onLikeTrack(track.id);
-                                handleDropdownClose();
-                              }}
-                              className="w-full text-left px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white flex items-center space-x-2"
-                            >
-                              <Heart size={14} className={track.isLiked ? 'fill-current' : ''} />
-                              <span>{track.isLiked ? 'Remove from Liked' : 'Like'}</span>
-                            </button>
-                          )}
                           {track.isDownloaded !== undefined && (
                             <button
                               onClick={(e) => {
@@ -309,7 +269,8 @@ export default function TrackList({
                                 onDownloadTrack(track.id);
                                 handleDropdownClose();
                               }}
-                              className="w-full text-left px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white flex items-center space-x-2"
+                              className="w-full text-left px-4 py-2 text-sm flex items-center gap-2 transition-colors duration-150"
+                              style={{ color: 'var(--text-primary)' }}
                             >
                               <Download size={14} />
                               <span>{track.isDownloaded ? 'Remove Download' : 'Download'}</span>
