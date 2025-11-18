@@ -194,11 +194,11 @@ export default function NowPlaying({
   const getRepeatIcon = () => {
     switch (repeatMode) {
       case 'all':
-        return <Repeat size={20} className="text-red-600" />;
+        return <Repeat size={20} className="text-black" />;
       case 'one':
-        return <div className="relative"><Repeat size={20} className="text-red-600" /><span className="absolute -top-1 -right-1 text-xs text-red-600">1</span></div>;
+        return <div className="relative"><Repeat size={20} className="text-black" /><span className="absolute -top-1 -right-1 text-xs text-black">1</span></div>;
       default:
-        return <Repeat size={20} className="text-gray-400" />;
+        return <Repeat size={20} className="text-black/60" />;
     }
   };
 
@@ -206,23 +206,23 @@ export default function NowPlaying({
     <>
       <audio ref={audioRef} src={isValidUrl(currentTrack.url) ? currentTrack.url : ''} />
 
-      <div className="min-h-screen text-white" style={{ background: 'linear-gradient(to bottom right, var(--background), var(--surface), var(--player-bg))' }}>
+      <div className="min-h-screen text-black" style={{ background: 'linear-gradient(to bottom right, var(--background), var(--surface), var(--player-bg))' }}>
         {/* Header */}
         <div className="flex items-center justify-between p-6">
           <button
             onClick={onBack}
-            className="flex items-center space-x-2 text-gray-400 hover:text-white transition-colors"
+            className="flex items-center space-x-2 text-black/60 hover:text-black transition-colors"
           >
             <ArrowLeft size={20} />
             <span>Back</span>
           </button>
 
           <div className="text-center">
-            <span className="text-sm text-gray-400">NOW PLAYING FROM YOUR LIBRARY</span>
+            <span className="text-sm text-black/60">NOW PLAYING FROM YOUR LIBRARY</span>
             <div className="font-medium">Liked Songs</div>
           </div>
 
-          <button className="text-gray-400 hover:text-white transition-colors">
+          <button className="text-black/60 hover:text-black transition-colors">
             <MoreHorizontal size={20} />
           </button>
         </div>
@@ -231,7 +231,7 @@ export default function NowPlaying({
         <div className="flex-1 flex flex-col items-center justify-center px-6 py-8 max-w-4xl mx-auto">
           {/* Album Artwork */}
           <div className="mb-8">
-            <div className={`w-96 h-96 bg-gray-800 rounded-lg shadow-2xl overflow-hidden ${
+            <div className={`w-96 h-96 bg-white rounded-lg shadow-2xl overflow-hidden ${
               isRotating ? 'animate-spin' : ''
             }`}
               style={{
@@ -246,9 +246,9 @@ export default function NowPlaying({
                   className="w-full h-full object-cover"
                 />
               ) : (
-                <div className="w-full h-full bg-gradient-to-br from-red-600 to-red-800 flex items-center justify-center">
-                  <div className="w-32 h-32 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
-                    <Play size={48} className="text-white ml-2" />
+                <div className="w-full h-full bg-black flex items-center justify-center">
+                  <div className="w-32 h-32 bg-white/20 rounded-full flex items-center justify-center">
+                    <Play size={48} className="text-black ml-2" />
                   </div>
                 </div>
               )}
@@ -258,8 +258,8 @@ export default function NowPlaying({
           {/* Track Info */}
           <div className="text-center mb-8 max-w-2xl">
             <h1 className="text-4xl font-bold mb-2">{currentTrack.title}</h1>
-            <p className="text-xl text-gray-400 mb-4">{currentTrack.artist}</p>
-            <p className="text-gray-500">{currentTrack.album}</p>
+            <p className="text-xl text-black/60 mb-4">{currentTrack.artist}</p>
+            <p className="text-black/60">{currentTrack.album}</p>
           </div>
 
           {/* Like Button */}
@@ -269,7 +269,7 @@ export default function NowPlaying({
           >
             <Heart
               size={24}
-              className={isLiked ? 'text-red-600 fill-current' : 'text-gray-400 hover:text-white'}
+              className={isLiked ? 'text-black fill-current' : 'text-black/60 hover:text-black'}
             />
           </button>
 
@@ -295,7 +295,7 @@ export default function NowPlaying({
                 <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-4 h-4 rounded-full opacity-0 group-hover:opacity-100 transition-all" style={{ backgroundColor: 'var(--primary)' }} />
               </div>
             </div>
-            <div className="flex justify-between text-xs text-gray-400">
+            <div className="flex justify-between text-xs text-black/60">
               <span>{formatTime(currentTime)}</span>
               <span>{formatTime(currentTrack.duration)}</span>
             </div>
@@ -305,7 +305,7 @@ export default function NowPlaying({
           <div className="flex items-center space-x-6 mb-8">
             <button
               onClick={onToggleShuffle}
-              className={`p-2 rounded-full transition-colors ${isShuffled ? 'text-red-600' : 'text-gray-400 hover:text-white'}`}
+              className={`p-2 rounded-full transition-colors ${isShuffled ? 'text-black' : 'text-black/60 hover:text-black'}`}
             >
               <Shuffle size={20} />
             </button>
@@ -314,26 +314,26 @@ export default function NowPlaying({
               onClick={onPrevious}
               className="p-3 hover:scale-105 transition-transform"
             >
-              <SkipBack size={24} />
+              <SkipBack size={24} className="text-black" />
             </button>
 
             <button
               onClick={onPlayPause}
-              className="p-5 bg-red-600 hover:bg-red-700 rounded-full hover:scale-105 transition-all shadow-lg"
+              className="p-5 bg-black hover:bg-black/90 rounded-full hover:scale-105 transition-all shadow-lg"
             >
-              {isPlaying ? <Pause size={28} /> : <Play size={28} className="ml-1" />}
+              {isPlaying ? <Pause size={28} className="text-white" /> : <Play size={28} className="ml-1 text-white" />}
             </button>
 
             <button
               onClick={onNext}
               className="p-3 hover:scale-105 transition-transform"
             >
-              <SkipForward size={24} />
+              <SkipForward size={24} className="text-black" />
             </button>
 
             <button
               onClick={onToggleRepeat}
-              className="p-2 rounded-full transition-colors hover:text-white"
+              className="p-2 rounded-full transition-colors hover:text-black"
             >
               {getRepeatIcon()}
             </button>
@@ -343,7 +343,7 @@ export default function NowPlaying({
           <div className="flex items-center space-x-3 w-full max-w-xs">
             <button
               onClick={() => setIsMuted(!isMuted)}
-              className="text-gray-400 hover:text-white transition-colors"
+              className="text-black/60 hover:text-black transition-colors"
             >
               {isMuted || volume === 0 ? <VolumeX size={18} /> : <Volume2 size={18} />}
             </button>
@@ -354,9 +354,9 @@ export default function NowPlaying({
                 max="100"
                 value={volume}
                 onChange={(e) => onVolumeChange(Number(e.target.value))}
-                className="w-full h-1 bg-gray-700 rounded-full appearance-none cursor-pointer"
+                className="w-full h-1 bg-white rounded-full appearance-none cursor-pointer"
                 style={{
-                  background: `linear-gradient(to right, #dc2626 0%, #dc2626 ${volume}%, #4b5563 ${volume}%, #4b5563 100%)`
+                  background: `linear-gradient(to right, #000000 0%, #000000 ${volume}%, #e5e5e5 ${volume}%, #e5e5e5 100%)`
                 }}
               />
             </div>
@@ -365,24 +365,24 @@ export default function NowPlaying({
 
         {/* Queue Section */}
         {queue.length > 0 && (
-          <div className="bg-gray-800 border-t border-gray-700 p-6">
+          <div className="bg-white border-t border-black/10 p-6">
             <h3 className="text-lg font-semibold mb-4">Up Next</h3>
             <div className="space-y-2 max-h-64 overflow-y-auto">
               {queue.slice(0, 10).map((track, index) => (
-                <div key={track.id} className="flex items-center space-x-3 p-2 hover:bg-gray-700 rounded cursor-pointer">
-                  <span className="text-gray-400 text-sm w-6">{index + 1}</span>
-                  <div className="w-8 h-8 bg-gray-600 rounded flex items-center justify-center">
+                <div key={track.id} className="flex items-center space-x-3 p-2 hover:bg-black/5 rounded cursor-pointer">
+                  <span className="text-black/60 text-sm w-6">{index + 1}</span>
+                  <div className="w-8 h-8 bg-white rounded flex items-center justify-center">
                     {track.artwork ? (
                       <img src={track.artwork} alt={track.title} className="w-full h-full object-cover rounded" />
                     ) : (
-                      <Play size={12} className="text-white ml-0.5" />
+                      <Play size={12} className="text-black ml-0.5" />
                     )}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <div className="font-medium truncate text-white">{track.title}</div>
-                    <div className="text-sm text-gray-400 truncate">{track.artist}</div>
+                    <div className="font-medium truncate text-black">{track.title}</div>
+                    <div className="text-sm text-black/60 truncate">{track.artist}</div>
                   </div>
-                  <span className="text-sm text-gray-400">{formatTime(track.duration)}</span>
+                  <span className="text-sm text-black/60">{formatTime(track.duration)}</span>
                 </div>
               ))}
             </div>

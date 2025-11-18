@@ -244,7 +244,7 @@ export default function MusicPlayer({
             <div className={styles.trackInfo}>
               <div className={styles.artwork}>
                 <div className={styles.artworkIcon}>
-                  <Play size={12} style={{ color: 'white', marginLeft: '0.125rem' }} />
+                  <Play size={12} style={{ color: 'var(--text)', marginLeft: '0.125rem' }} />
                 </div>
               </div>
               <div className={styles.trackDetails}>

@@ -79,11 +79,11 @@ export default function Playlist({
   };
 
   return (
-    <div className="bg-gray-900 rounded-lg">
+    <div className="bg-white rounded-lg">
       {/* Playlist Header */}
-      <div className="bg-gray-800 p-8 rounded-t-lg">
+      <div className="bg-white p-8 rounded-t-lg">
         <div className="flex items-center space-x-6">
-          <div className="w-48 h-48 bg-gray-700 rounded-lg flex items-center justify-center shadow-xl">
+          <div className="w-48 h-48 bg-white rounded-lg flex items-center justify-center shadow-xl">
             {playlist.artwork ? (
               <img
                 src={playlist.artwork}
@@ -92,27 +92,27 @@ export default function Playlist({
               />
             ) : (
               <div className="text-center">
-                <div className="w-24 h-24 bg-red-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                <div className="w-24 h-24 bg-black rounded-full flex items-center justify-center mx-auto mb-3">
                   <Plus size={32} className="text-white" />
                 </div>
-                <span className="text-gray-400 text-sm">No Cover</span>
+                <span className="text-black/60 text-sm">No Cover</span>
               </div>
             )}
           </div>
 
           <div className="flex-1">
             <div className="flex items-center space-x-3 mb-2">
-              <span className="text-sm text-gray-400">Playlist</span>
+              <span className="text-sm text-black/60">Playlist</span>
               {playlist.isLiked && (
-                <Heart size={16} className="text-red-600 fill-current" />
+                <Heart size={16} className="text-black fill-current" />
               )}
             </div>
             <h1 className="text-4xl font-bold mb-2">{playlist.name}</h1>
             {playlist.description && (
-              <p className="text-gray-400 mb-4">{playlist.description}</p>
+              <p className="text-black/60 mb-4">{playlist.description}</p>
             )}
 
-            <div className="flex items-center space-x-4 text-sm text-gray-300">
+            <div className="flex items-center space-x-4 text-sm text-black/60">
               <span>{playlist.tracks.length} tracks</span>
               <span>•</span>
               <span>{formatDuration(playlist.totalDuration)}</span>
@@ -123,13 +123,13 @@ export default function Playlist({
             <div className="flex items-center space-x-3 mt-6">
               <button
                 onClick={() => playlist.tracks.length > 0 && handleTrackPlay(playlist.tracks[0])}
-                className="music-btn music-btn-large bg-red-600 hover:bg-red-700"
+                className="music-btn music-btn-large bg-black hover:bg-black/90"
                 disabled={playlist.tracks.length === 0}
               >
                 {currentTrackId === playlist.tracks[0]?.id && isPlaying ? (
-                  <Pause size={24} />
+                  <Pause size={24} className="text-white" />
                 ) : (
-                  <Play size={24} className="ml-1" />
+                  <Play size={24} className="ml-1 text-white" />
                 )}
               </button>
 
@@ -137,8 +137,8 @@ export default function Playlist({
                 onClick={() => onLikePlaylist(playlist.id)}
                 className={`p-3 rounded-full transition-colors ${
                   playlist.isLiked
-                    ? 'text-red-600 bg-red-600 bg-opacity-20'
-                    : 'text-gray-400 hover:text-white hover:bg-gray-700'
+                    ? 'text-black bg-black/5'
+                    : 'text-black/60 hover:text-black hover:bg-black/5'
                 }`}
               >
                 <Heart size={20} className={playlist.isLiked ? 'fill-current' : ''} />
@@ -146,18 +146,18 @@ export default function Playlist({
 
               <button
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                className="p-3 text-gray-400 hover:text-white hover:bg-gray-700 rounded-full transition-colors relative"
+                className="p-3 text-black/60 hover:text-black hover:bg-black/5 rounded-full transition-colors relative"
               >
                 <MoreHorizontal size={20} />
 
                 {isDropdownOpen && (
-                  <div className="absolute top-full left-0 mt-2 bg-gray-800 rounded-lg shadow-xl border border-gray-700 py-2 min-w-[160px] z-10">
+                  <div className="absolute top-full left-0 mt-2 bg-white rounded-lg shadow-xl border border-black/10 py-2 min-w-[160px] z-10">
                     <button
                       onClick={() => {
                         onEditPlaylist();
                         setIsDropdownOpen(false);
                       }}
-                      className="w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white flex items-center space-x-2"
+                      className="w-full text-left px-4 py-2 text-sm text-black/60 hover:bg-black/5 hover:text-black flex items-center space-x-2"
                     >
                       <Edit3 size={14} />
                       <span>Edit Playlist</span>
@@ -167,7 +167,7 @@ export default function Playlist({
                         onDeletePlaylist();
                         setIsDropdownOpen(false);
                       }}
-                      className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-700 flex items-center space-x-2"
+                      className="w-full text-left px-4 py-2 text-sm text-black hover:bg-black/5 flex items-center space-x-2"
                     >
                       <Trash2 size={14} />
                       <span>Delete Playlist</span>
@@ -181,8 +181,8 @@ export default function Playlist({
       </div>
 
       {/* Track List */}
-      <div className="divide-y divide-gray-800">
-        <div className="grid grid-cols-12 gap-4 px-8 py-3 text-sm text-gray-400 font-medium">
+      <div className="divide-y divide-black/10">
+        <div className="grid grid-cols-12 gap-4 px-8 py-3 text-sm text-black/60 font-medium">
           <div className="col-span-1">#</div>
           <div className="col-span-5">TITLE</div>
           <div className="col-span-3">ALBUM</div>
@@ -191,9 +191,9 @@ export default function Playlist({
         </div>
 
         {playlist.tracks.length === 0 ? (
-          <div className="px-8 py-16 text-center text-gray-400">
-            <div className="w-16 h-16 bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Plus size={24} />
+          <div className="px-8 py-16 text-center text-black/60">
+            <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
+              <Plus size={24} className="text-black" />
             </div>
             <h3 className="text-lg font-medium mb-2">This playlist is empty</h3>
             <p>Add some tracks to get started!</p>
@@ -202,8 +202,8 @@ export default function Playlist({
           playlist.tracks.map((track, index) => (
             <div
               key={track.id}
-              className={`grid grid-cols-12 gap-4 px-8 py-3 group hover:bg-gray-800 cursor-pointer transition-colors ${
-                currentTrackId === track.id ? 'bg-gray-800' : ''
+              className={`grid grid-cols-12 gap-4 px-8 py-3 group hover:bg-black/5 cursor-pointer transition-colors ${
+                currentTrackId === track.id ? 'bg-black/5' : ''
               }`}
               onMouseEnter={() => setSelectedTrack(track.id)}
               onMouseLeave={() => setSelectedTrack(null)}
@@ -211,11 +211,11 @@ export default function Playlist({
               <div className="col-span-1 flex items-center justify-center">
                 {currentTrackId === track.id && isPlaying ? (
                   <div className="w-5 h-5 flex items-center justify-center">
-                    <Pause size={16} className="text-red-600" />
+                    <Pause size={16} className="text-black" />
                   </div>
                 ) : (
                   <div className="flex items-center space-x-2">
-                    <span className="text-gray-400 group-hover:hidden">
+                    <span className="text-black/60 group-hover:hidden">
                       {index + 1}
                     </span>
                     <button
@@ -226,7 +226,7 @@ export default function Playlist({
                       className="hidden group-hover:block"
                     >
                       <div className="w-5 h-5 flex items-center justify-center">
-                        <Play size={16} className="text-red-600 ml-0.5" />
+                        <Play size={16} className="text-black ml-0.5" />
                       </div>
                     </button>
                   </div>
@@ -234,7 +234,7 @@ export default function Playlist({
               </div>
 
               <div className="col-span-5 flex items-center space-x-3">
-                <div className="w-10 h-10 bg-gray-700 rounded flex items-center justify-center flex-shrink-0">
+                <div className="w-10 h-10 bg-white rounded flex items-center justify-center flex-shrink-0">
                   {track.artwork ? (
                     <img
                       src={track.artwork}
@@ -242,27 +242,27 @@ export default function Playlist({
                       className="w-full h-full object-cover rounded"
                     />
                   ) : (
-                    <Play size={12} className="text-white ml-0.5" />
+                    <Play size={12} className="text-black ml-0.5" />
                   )}
                 </div>
                 <div className="min-w-0">
                   <div className={`font-medium truncate ${
-                    currentTrackId === track.id ? 'text-red-600' : 'text-white'
+                    currentTrackId === track.id ? 'text-black' : 'text-black'
                   }`}>
                     {track.title}
                   </div>
-                  <div className="text-sm text-gray-400 truncate">
+                  <div className="text-sm text-black/60 truncate">
                     {track.artist}
                   </div>
                 </div>
               </div>
 
               <div className="col-span-3 flex items-center">
-                <span className="text-sm text-gray-400 truncate">{track.album}</span>
+                <span className="text-sm text-black/60 truncate">{track.album}</span>
               </div>
 
               <div className="col-span-2 flex items-center">
-                <span className="text-sm text-gray-400">
+                <span className="text-sm text-black/60">
                   {formatDuration(track.duration)}
                 </span>
               </div>
@@ -274,7 +274,7 @@ export default function Playlist({
                       e.stopPropagation();
                       onRemoveTrack(track.id);
                     }}
-                    className="p-1 text-gray-400 hover:text-red-600 transition-colors"
+                    className="p-1 text-black/60 hover:text-black transition-colors"
                   >
                     <Trash2 size={16} />
                   </button>

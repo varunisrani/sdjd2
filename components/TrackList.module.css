@@ -261,7 +261,7 @@
 }
 
 .trackRow:active {
-  background-color: rgba(241, 245, 249, 0.7);
+  background-color: var(--active-bg);
 }
 
 .trackRow:last-child {
@@ -274,11 +274,11 @@
 }
 
 .trackRowActive:hover {
-  background-color: rgba(241, 245, 249, 0.5);
+  background-color: var(--hover-bg);
 }
 
 .trackRowActive:active {
-  background-color: rgba(241, 245, 249, 0.7);
+  background-color: var(--active-bg);
 }
 
 /* Track Number / Play Button Column */
@@ -500,7 +500,7 @@
 }
 
 .actionButton:hover {
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: var(--hover-bg);
 }
 
 .actionButtonLiked {

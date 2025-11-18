@@ -96,9 +96,9 @@ export default function TrackList({
             aria-label="Play all"
           >
             {currentTrackId === tracks[0]?.id && isPlaying ? (
-              <Pause size={20} className="text-white" />
+              <Pause size={20} className="text-black" />
             ) : (
-              <Play size={20} className="ml-1 text-white" />
+              <Play size={20} className="ml-1 text-black" />
             )}
           </button>
 
@@ -176,7 +176,7 @@ export default function TrackList({
                       className={styles.artworkImage}
                     />
                   ) : (
-                    <Play size={14} className={`text-white ml-0.5 ${styles.artworkPlaceholder}`} />
+                    <Play size={14} className={`text-black ml-0.5 ${styles.artworkPlaceholder}`} />
                   )}
                 </div>
               </div>

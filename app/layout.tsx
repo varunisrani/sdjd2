@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   keywords: "music, streaming, playlists, modern design, music player, audio",
   authors: [{ name: "Doit Music" }],
   viewport: "width=device-width, initial-scale=1",
-  themeColor: "#2563eb",
+  themeColor: "#ffffff",
 };
 
 export default function RootLayout({
