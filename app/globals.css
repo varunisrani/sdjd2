@@ -7,17 +7,17 @@
      COLOR SYSTEM
      ========================================== */
 
-  /* Primary Colors - Elegant Blue
+  /* Primary Colors - Elegant Red
    * Used for primary actions, active states, and brand elements
    * --primary: Main brand color for buttons, links, and key UI elements
    * --primary-dark: Darker variant for hover states and emphasis
    * --primary-light: Light tint for backgrounds and subtle highlights
    * --primary-hover: Interactive hover state for buttons and controls
    */
-  --primary: #2563eb;
-  --primary-dark: #1e40af;
-  --primary-light: #dbeafe;
-  --primary-hover: #3b82f6;
+  --primary: #DC2626;
+  --primary-dark: #B91C1C;
+  --primary-light: #FEE2E2;
+  --primary-hover: #B91C1C;
 
   /* Secondary Colors
    * Used for secondary UI elements, borders, and subtle accents
@@ -31,11 +31,11 @@
 
   /* Accent Colors
    * Used for special highlights, featured content, and visual interest
-   * --accent: Purple accent for special UI elements
-   * --accent-light: Light purple for backgrounds and subtle accents
+   * --accent: Red accent for special UI elements
+   * --accent-light: Light red for backgrounds and subtle accents
    */
-  --accent: #8b5cf6;
-  --accent-light: #ede9fe;
+  --accent: #DC2626;
+  --accent-light: #FEE2E2;
 
   /* Neutral Colors - Light Theme
    * Base colors for text, backgrounds, and structural elements
@@ -53,7 +53,7 @@
   --text-primary: #0f172a;
   --text-secondary: #64748b;
   --background: #ffffff;
-  --surface: #f8fafc;
+  --surface: #F9FAFB;
 
   /* Status Colors
    * Semantic colors for feedback, alerts, and status indicators
@@ -74,10 +74,10 @@
    * --player-bg: Music player container background
    * --control-active: Active state for playback controls
    */
-  --now-playing-bg: #f8fafc;
+  --now-playing-bg: #F9FAFB;
   --track-hover: #f1f5f9;
   --player-bg: #ffffff;
-  --control-active: #2563eb;
+  --control-active: #DC2626;
 
   /* ==========================================
      ELEVATION SYSTEM (Shadows)

@@ -231,7 +231,7 @@ export default function NowPlaying({
         <div className="flex-1 flex flex-col items-center justify-center px-6 py-8 max-w-4xl mx-auto">
           {/* Album Artwork */}
           <div className="mb-8">
-            <div className={`w-96 h-96 bg-gray-800 rounded-lg shadow-2xl overflow-hidden ${
+            <div className={`w-96 h-96 bg-gray-50 rounded-lg shadow-2xl overflow-hidden ${
               isRotating ? 'animate-spin' : ''
             }`}
               style={{
@@ -258,8 +258,8 @@ export default function NowPlaying({
           {/* Track Info */}
           <div className="text-center mb-8 max-w-2xl">
             <h1 className="text-4xl font-bold mb-2">{currentTrack.title}</h1>
-            <p className="text-xl text-gray-400 mb-4">{currentTrack.artist}</p>
-            <p className="text-gray-500">{currentTrack.album}</p>
+            <p className="text-xl text-gray-600 mb-4">{currentTrack.artist}</p>
+            <p className="text-gray-700">{currentTrack.album}</p>
           </div>
 
           {/* Like Button */}
@@ -269,7 +269,7 @@ export default function NowPlaying({
           >
             <Heart
               size={24}
-              className={isLiked ? 'text-red-600 fill-current' : 'text-gray-400 hover:text-white'}
+              className={isLiked ? 'text-red-600 fill-current' : 'text-gray-600 hover:text-gray-900'}
             />
           </button>
 
@@ -295,7 +295,7 @@ export default function NowPlaying({
                 <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-4 h-4 rounded-full opacity-0 group-hover:opacity-100 transition-all" style={{ backgroundColor: 'var(--primary)' }} />
               </div>
             </div>
-            <div className="flex justify-between text-xs text-gray-400">
+            <div className="flex justify-between text-xs text-gray-600">
               <span>{formatTime(currentTime)}</span>
               <span>{formatTime(currentTrack.duration)}</span>
             </div>
@@ -305,7 +305,7 @@ export default function NowPlaying({
           <div className="flex items-center space-x-6 mb-8">
             <button
               onClick={onToggleShuffle}
-              className={`p-2 rounded-full transition-colors ${isShuffled ? 'text-red-600' : 'text-gray-400 hover:text-white'}`}
+              className={`p-2 rounded-full transition-colors ${isShuffled ? 'text-red-600' : 'text-gray-600 hover:text-gray-900'}`}
             >
               <Shuffle size={20} />
             </button>
@@ -343,7 +343,7 @@ export default function NowPlaying({
           <div className="flex items-center space-x-3 w-full max-w-xs">
             <button
               onClick={() => setIsMuted(!isMuted)}
-              className="text-gray-400 hover:text-white transition-colors"
+              className="text-gray-600 hover:text-gray-900 transition-colors"
             >
               {isMuted || volume === 0 ? <VolumeX size={18} /> : <Volume2 size={18} />}
             </button>
@@ -354,9 +354,9 @@ export default function NowPlaying({
                 max="100"
                 value={volume}
                 onChange={(e) => onVolumeChange(Number(e.target.value))}
-                className="w-full h-1 bg-gray-700 rounded-full appearance-none cursor-pointer"
+                className="w-full h-1 bg-gray-200 rounded-full appearance-none cursor-pointer"
                 style={{
-                  background: `linear-gradient(to right, #dc2626 0%, #dc2626 ${volume}%, #4b5563 ${volume}%, #4b5563 100%)`
+                  background: `linear-gradient(to right, #dc2626 0%, #dc2626 ${volume}%, #e5e7eb ${volume}%, #e5e7eb 100%)`
                 }}
               />
             </div>
@@ -365,13 +365,13 @@ export default function NowPlaying({
 
         {/* Queue Section */}
         {queue.length > 0 && (
-          <div className="bg-gray-800 border-t border-gray-700 p-6">
+          <div className="bg-white border-t border-gray-200 p-6">
             <h3 className="text-lg font-semibold mb-4">Up Next</h3>
             <div className="space-y-2 max-h-64 overflow-y-auto">
               {queue.slice(0, 10).map((track, index) => (
-                <div key={track.id} className="flex items-center space-x-3 p-2 hover:bg-gray-700 rounded cursor-pointer">
-                  <span className="text-gray-400 text-sm w-6">{index + 1}</span>
-                  <div className="w-8 h-8 bg-gray-600 rounded flex items-center justify-center">
+                <div key={track.id} className="flex items-center space-x-3 p-2 hover:bg-gray-100 rounded cursor-pointer">
+                  <span className="text-gray-600 text-sm w-6">{index + 1}</span>
+                  <div className="w-8 h-8 bg-gray-200 rounded flex items-center justify-center">
                     {track.artwork ? (
                       <img src={track.artwork} alt={track.title} className="w-full h-full object-cover rounded" />
                     ) : (
